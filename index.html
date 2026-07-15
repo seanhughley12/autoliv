@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Autoliv — The E7 Platform Opportunity</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<style>
+/* ─── RESET ─── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+body{font-family:'Inter',system-ui,sans-serif;background:#f8fafb;color:#1a1a2e;line-height:1.7}
+
+/* ─── AUTOLIV BRAND ─── */
+:root{
+  --alv-primary:#005495;
+  --alv-dark:#003366;
+  --alv-navy:#001d3d;
+  --alv-accent:#0077c8;
+  --alv-light:#e6f0f8;
+  --alv-gold:#d4a843;
+  --alv-success:#2d8a4e;
+  --alv-warn:#e67e22;
+  --alv-red:#c0392b;
+  --alv-surface:#ffffff;
+  --alv-text:#1a1a2e;
+  --alv-muted:#5a6680;
+  --alv-border:#dde3ec;
+  --alv-radius:12px;
+  --alv-shadow:0 2px 12px rgba(0,20,60,.06);
+  --alv-shadow-lg:0 8px 32px rgba(0,20,60,.10);
+}
+
+/* ─── NAV ─── */
+.top-nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(0,51,102,.97);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,.08);padding:0 40px;height:60px;display:flex;align-items:center;justify-content:space-between;transition:box-shadow .3s}
+.top-nav.scrolled{box-shadow:0 4px 20px rgba(0,0,0,.2)}
+.nav-logo{height:28px;filter:brightness(0) invert(1)}
+.nav-links{display:flex;gap:28px}
+.nav-links a{color:rgba(255,255,255,.75);text-decoration:none;font-size:13px;font-weight:500;letter-spacing:.3px;transition:color .2s}
+.nav-links a:hover{color:#fff}
+.nav-badge{background:var(--alv-gold);color:var(--alv-navy);font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;margin-left:6px;letter-spacing:.5px}
+
+/* ─── HERO ─── */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;background:linear-gradient(135deg,var(--alv-navy) 0%,var(--alv-dark) 40%,var(--alv-primary) 100%);color:#fff;padding:120px 60px 80px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-50%;right:-20%;width:80%;height:200%;background:radial-gradient(ellipse,rgba(0,119,200,.15) 0%,transparent 70%);pointer-events:none}
+.hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:120px;background:linear-gradient(transparent,rgba(0,29,61,.4));pointer-events:none}
+.hero-eyebrow{font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--alv-gold);margin-bottom:20px;display:flex;align-items:center;gap:10px}
+.hero-eyebrow::before{content:'';width:40px;height:2px;background:var(--alv-gold)}
+.hero h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(2.5rem,5vw,4.2rem);font-weight:800;line-height:1.1;max-width:900px;margin-bottom:24px}
+.hero h1 .accent{color:var(--alv-gold)}
+.hero-sub{font-size:20px;color:rgba(255,255,255,.7);max-width:680px;line-height:1.7;font-weight:300}
+.hero-stats{display:flex;gap:40px;margin-top:48px;flex-wrap:wrap}
+.hero-stat{text-align:left}
+.hero-stat-val{font-family:'Space Grotesk',sans-serif;font-size:36px;font-weight:800;color:#fff}
+.hero-stat-val .unit{font-size:20px;color:var(--alv-gold);margin-left:2px}
+.hero-stat-label{font-size:12px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:1.5px;margin-top:4px}
+.hero-logo{position:absolute;top:100px;right:60px;height:50px;filter:brightness(0) invert(1);opacity:.3}
+
+/* ─── SECTIONS ─── */
+.section{padding:100px 60px;max-width:1200px;margin:0 auto}
+.section-full{padding:100px 60px}
+.section-label{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--alv-primary);margin-bottom:12px;display:flex;align-items:center;gap:10px}
+.section-label::before{content:'';width:24px;height:2px;background:var(--alv-primary)}
+.section h2{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:800;color:var(--alv-navy);line-height:1.15;margin-bottom:20px}
+.section h2 .highlight{color:var(--alv-primary)}
+.section-intro{font-size:18px;color:var(--alv-muted);max-width:720px;line-height:1.8;margin-bottom:48px}
+
+/* ─── MOMENTUM GRID ─── */
+.momentum-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:40px}
+.momentum-card{background:var(--alv-surface);border:1px solid var(--alv-border);border-radius:var(--alv-radius);padding:28px;transition:all .25s;position:relative;overflow:hidden}
+.momentum-card:hover{transform:translateY(-3px);box-shadow:var(--alv-shadow-lg);border-color:var(--alv-primary)}
+.momentum-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--alv-primary);transform:scaleX(0);transform-origin:left;transition:transform .3s}
+.momentum-card:hover::before{transform:scaleX(1)}
+.mc-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:16px}
+.mc-icon.blue{background:rgba(0,84,149,.08);color:var(--alv-primary)}
+.mc-icon.gold{background:rgba(212,168,67,.1);color:var(--alv-gold)}
+.mc-icon.green{background:rgba(45,138,78,.08);color:var(--alv-success)}
+.mc-icon.orange{background:rgba(230,126,34,.08);color:var(--alv-warn)}
+.mc-title{font-weight:700;font-size:15px;color:var(--alv-navy);margin-bottom:8px}
+.mc-body{font-size:14px;color:var(--alv-muted);line-height:1.6}
+.mc-stat{font-family:'Space Grotesk',sans-serif;font-size:28px;font-weight:800;color:var(--alv-primary);margin-bottom:4px}
+
+/* ─── PROBLEM SECTION ─── */
+.problem-section{background:linear-gradient(135deg,#fdf6ec 0%,#fff9f0 100%);border-top:1px solid #f0e0c4;border-bottom:1px solid #f0e0c4}
+.problem-columns{display:grid;grid-template-columns:1fr 1fr;gap:60px;margin-top:40px}
+.problem-left{display:flex;flex-direction:column;gap:24px}
+.problem-item{display:flex;gap:16px;align-items:flex-start}
+.problem-bullet{width:32px;height:32px;border-radius:50%;background:rgba(192,57,43,.08);color:var(--alv-red);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;margin-top:2px}
+.problem-text h4{font-size:15px;font-weight:700;color:var(--alv-navy);margin-bottom:4px}
+.problem-text p{font-size:14px;color:var(--alv-muted);line-height:1.6}
+.problem-quote{background:var(--alv-surface);border-left:4px solid var(--alv-warn);border-radius:0 var(--alv-radius) var(--alv-radius) 0;padding:32px;font-size:17px;font-style:italic;color:var(--alv-navy);line-height:1.7;box-shadow:var(--alv-shadow);align-self:center}
+.problem-quote cite{display:block;margin-top:16px;font-size:13px;font-style:normal;color:var(--alv-muted);font-weight:600}
+
+/* ─── THREE LAYERS ─── */
+.layers-section{background:var(--alv-navy);color:#fff;position:relative;overflow:hidden}
+.layers-section::before{content:'';position:absolute;top:0;right:0;width:50%;height:100%;background:radial-gradient(ellipse at top right,rgba(0,119,200,.1),transparent 70%);pointer-events:none}
+.layers-section .section-label{color:var(--alv-gold)}
+.layers-section .section-label::before{background:var(--alv-gold)}
+.layers-section h2{color:#fff}
+.layers-section .section-intro{color:rgba(255,255,255,.6)}
+.layer-block{margin-bottom:64px;position:relative}
+.layer-header{display:flex;align-items:center;gap:20px;margin-bottom:28px}
+.layer-num{font-family:'Space Grotesk',sans-serif;font-size:48px;font-weight:900;color:var(--alv-gold);opacity:.4;line-height:1}
+.layer-title-group h3{font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:700;color:#fff}
+.layer-title-group p{font-size:14px;color:rgba(255,255,255,.5);margin-top:4px}
+.layer-content{display:grid;grid-template-columns:1fr 1fr;gap:40px;padding-left:68px}
+.layer-narrative{font-size:16px;color:rgba(255,255,255,.75);line-height:1.8}
+.layer-narrative strong{color:#fff}
+.layer-points{display:flex;flex-direction:column;gap:16px}
+.layer-point{display:flex;gap:12px;align-items:flex-start}
+.layer-point-icon{width:24px;height:24px;border-radius:6px;background:rgba(212,168,67,.15);color:var(--alv-gold);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;margin-top:2px}
+.layer-point p{font-size:14px;color:rgba(255,255,255,.7);line-height:1.6}
+.layer-point p strong{color:#fff}
+.peer-proof{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:var(--alv-radius);padding:24px;margin-top:24px;margin-left:68px}
+.peer-proof-title{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--alv-gold);margin-bottom:12px}
+.peer-proof-items{display:flex;gap:24px;flex-wrap:wrap}
+.peer-item{flex:1;min-width:240px;padding:16px;background:rgba(255,255,255,.03);border-radius:8px;border:1px solid rgba(255,255,255,.06)}
+.peer-item h5{font-size:13px;font-weight:700;color:#fff;margin-bottom:6px}
+.peer-item p{font-size:13px;color:rgba(255,255,255,.55);line-height:1.5}
+.peer-item .peer-stat{font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:800;color:var(--alv-gold);margin-bottom:4px}
+
+/* ─── AGENT LANDSCAPE ─── */
+.agent-landscape{background:linear-gradient(180deg,#f0f6fb 0%,#fff 100%)}
+.agent-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:24px;margin-top:40px}
+.agent-category{background:var(--alv-surface);border:1px solid var(--alv-border);border-radius:var(--alv-radius);overflow:hidden;transition:all .25s}
+.agent-category:hover{box-shadow:var(--alv-shadow-lg);transform:translateY(-2px)}
+.agent-cat-header{padding:20px 24px;background:linear-gradient(135deg,var(--alv-navy),var(--alv-dark));color:#fff;display:flex;align-items:center;gap:12px}
+.agent-cat-icon{font-size:22px}
+.agent-cat-title{font-weight:700;font-size:15px}
+.agent-cat-body{padding:24px}
+.agent-vendor{display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:1px solid #f0f3f7}
+.agent-vendor:last-child{border-bottom:none}
+.agent-vendor-status{width:8px;height:8px;border-radius:50%;margin-top:6px;flex-shrink:0}
+.agent-vendor-status.active{background:var(--alv-success)}
+.agent-vendor-status.planned{background:var(--alv-warn)}
+.agent-vendor-status.future{background:var(--alv-border)}
+.agent-vendor-info h5{font-size:14px;font-weight:600;color:var(--alv-navy)}
+.agent-vendor-info p{font-size:13px;color:var(--alv-muted);line-height:1.5;margin-top:2px}
+.agent-vendor-tag{font-size:10px;font-weight:700;letter-spacing:.5px;padding:2px 8px;border-radius:4px;text-transform:uppercase;margin-top:4px;display:inline-block}
+.agent-vendor-tag.in-use{background:rgba(45,138,78,.08);color:var(--alv-success)}
+.agent-vendor-tag.evaluating{background:rgba(230,126,34,.08);color:var(--alv-warn)}
+.agent-vendor-tag.roadmap{background:rgba(0,84,149,.06);color:var(--alv-primary)}
+
+.governance-callout{margin-top:48px;background:linear-gradient(135deg,var(--alv-navy),var(--alv-dark));border-radius:var(--alv-radius);padding:48px;color:#fff;position:relative;overflow:hidden}
+.governance-callout::before{content:'';position:absolute;top:-50%;right:-10%;width:60%;height:200%;background:radial-gradient(ellipse,rgba(212,168,67,.08),transparent 70%);pointer-events:none}
+.governance-callout h3{font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:800;margin-bottom:16px}
+.governance-callout p{font-size:16px;color:rgba(255,255,255,.7);line-height:1.7;max-width:700px}
+.gov-comparison{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:32px}
+.gov-col{padding:24px;border-radius:var(--alv-radius);border:1px solid rgba(255,255,255,.1)}
+.gov-col.without{background:rgba(192,57,43,.08)}
+.gov-col.with{background:rgba(45,138,78,.08)}
+.gov-col h4{font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:16px}
+.gov-col.without h4{color:var(--alv-red)}
+.gov-col.with h4{color:#4caf50}
+.gov-col ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+.gov-col li{font-size:14px;color:rgba(255,255,255,.7);display:flex;align-items:flex-start;gap:8px}
+.gov-col li::before{content:'';width:6px;height:6px;border-radius:50%;margin-top:7px;flex-shrink:0}
+.gov-col.without li::before{background:rgba(192,57,43,.5)}
+.gov-col.with li::before{background:rgba(76,175,80,.6)}
+
+/* ─── PIPELINE ─── */
+.pipeline-section{background:var(--alv-surface);border-top:1px solid var(--alv-border);border-bottom:1px solid var(--alv-border)}
+.pipeline-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;margin-top:40px}
+.pipeline-card{background:var(--alv-light);border-radius:var(--alv-radius);padding:24px;border:1px solid rgba(0,84,149,.08);text-align:center;transition:all .25s}
+.pipeline-card:hover{transform:scale(1.02);box-shadow:var(--alv-shadow)}
+.pipeline-card.anchor{background:linear-gradient(135deg,var(--alv-primary),var(--alv-dark));color:#fff;border:none;grid-column:span 2}
+.pipeline-card.anchor .pc-label{color:rgba(255,255,255,.6)}
+.pipeline-card.anchor .pc-val{color:#fff}
+.pc-val{font-family:'Space Grotesk',sans-serif;font-size:28px;font-weight:800;color:var(--alv-primary);margin-bottom:4px}
+.pc-label{font-size:12px;color:var(--alv-muted);text-transform:uppercase;letter-spacing:1px;font-weight:600;margin-bottom:8px}
+.pc-detail{font-size:13px;color:var(--alv-muted);line-height:1.5}
+.pipeline-card.anchor .pc-detail{color:rgba(255,255,255,.7)}
+.consumption-row{display:flex;flex-wrap:wrap;gap:16px;margin-top:32px;justify-content:center}
+.consumption-chip{background:var(--alv-surface);border:1px solid var(--alv-border);border-radius:20px;padding:8px 20px;display:flex;align-items:center;gap:8px;font-size:13px;color:var(--alv-muted)}
+.consumption-chip .chip-val{font-weight:700;color:var(--alv-primary)}
+
+/* ─── ACTION ─── */
+.action-section{background:linear-gradient(135deg,var(--alv-primary),var(--alv-navy));color:#fff;text-align:center}
+.action-section .section-label{color:var(--alv-gold);justify-content:center}
+.action-section .section-label::before{background:var(--alv-gold)}
+.action-section h2{color:#fff}
+.action-steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px;margin-top:48px;max-width:900px;margin-left:auto;margin-right:auto}
+.action-step{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:var(--alv-radius);padding:28px;text-align:left}
+.action-step-num{font-family:'Space Grotesk',sans-serif;font-size:32px;font-weight:900;color:var(--alv-gold);opacity:.5;margin-bottom:12px}
+.action-step h4{font-size:15px;font-weight:700;margin-bottom:8px}
+.action-step p{font-size:13px;color:rgba(255,255,255,.6);line-height:1.6}
+
+/* ─── DEAL RISK ALERT ─── */
+
+/* ─── COST ARCHITECTURE ─── */
+.cost-arch-section{background:linear-gradient(180deg,#f8fafb 0%,#edf2f7 100%);border-top:1px solid var(--alv-border)}
+.cost-tier{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;margin-top:40px}
+.cost-tier-card{background:var(--alv-surface);border:1px solid var(--alv-border);border-radius:var(--alv-radius);overflow:hidden;transition:all .25s}
+.cost-tier-card:hover{box-shadow:var(--alv-shadow-lg);transform:translateY(-2px)}
+.cost-tier-header{padding:20px 24px;color:#fff;text-align:center}
+.cost-tier-header.tier-foundation{background:linear-gradient(135deg,var(--alv-primary),var(--alv-dark))}
+.cost-tier-header.tier-targeted{background:linear-gradient(135deg,var(--alv-gold),#b8912e)}
+.cost-tier-header.tier-precision{background:linear-gradient(135deg,#2d8a4e,#1a6b38)}
+.cost-tier-header h4{font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:800;margin-bottom:4px}
+.cost-tier-header .tier-who{font-size:12px;opacity:.8;font-weight:500}
+.cost-tier-body{padding:24px}
+.cost-tier-body .tier-cost{font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;color:var(--alv-primary);margin-bottom:16px;padding:8px 12px;background:var(--alv-light);border-radius:6px;text-align:center}
+.cost-tier-body ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+.cost-tier-body li{font-size:13px;color:var(--alv-muted);display:flex;align-items:flex-start;gap:8px;line-height:1.5}
+.cost-tier-body li::before{content:'→';color:var(--alv-primary);font-weight:700;flex-shrink:0}
+.arch-pattern{background:var(--alv-surface);border:1px solid var(--alv-border);border-radius:var(--alv-radius);padding:36px;margin-top:48px}
+.arch-pattern h3{font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:800;color:var(--alv-navy);margin-bottom:8px}
+.arch-pattern .arch-sub{font-size:14px;color:var(--alv-muted);margin-bottom:24px}
+.arch-flow{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:12px;align-items:center}
+.arch-step{background:var(--alv-light);border:1px solid rgba(0,84,149,.1);border-radius:var(--alv-radius);padding:20px;text-align:center}
+.arch-step h5{font-size:14px;font-weight:700;color:var(--alv-navy);margin-bottom:6px}
+.arch-step p{font-size:12px;color:var(--alv-muted);line-height:1.5}
+.arch-step .arch-cost{font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;color:var(--alv-success);margin-top:8px;padding:3px 8px;background:rgba(45,138,78,.06);border-radius:4px;display:inline-block}
+.arch-arrow{font-size:20px;color:var(--alv-border);text-align:center}
+
+/* ─── DEAL RISK ALERT ─── */
+.risk-section{background:#fdf2f2;border-top:3px solid var(--alv-red);border-bottom:1px solid #f0d0d0}
+.risk-banner{background:var(--alv-surface);border:2px solid var(--alv-red);border-radius:var(--alv-radius);padding:36px 40px;margin-top:40px;position:relative;overflow:hidden}
+.risk-banner::before{content:'⚠';position:absolute;top:20px;right:24px;font-size:48px;opacity:.08}
+.risk-badge{display:inline-block;background:var(--alv-red);color:#fff;font-size:10px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;padding:4px 12px;border-radius:4px;margin-bottom:16px}
+.risk-banner h3{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:800;color:var(--alv-red);margin-bottom:12px}
+.risk-banner p{font-size:15px;color:var(--alv-text);line-height:1.8;max-width:800px}
+.risk-banner p strong{color:var(--alv-red)}
+.risk-comparison{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:28px}
+.risk-col{padding:20px;border-radius:8px;border:1px solid var(--alv-border)}
+.risk-col.bad{background:#fff5f5;border-color:rgba(192,57,43,.15)}
+.risk-col.good{background:#f0faf4;border-color:rgba(45,138,78,.15)}
+.risk-col h4{font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px}
+.risk-col.bad h4{color:var(--alv-red)}
+.risk-col.good h4{color:var(--alv-success)}
+.risk-col ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+.risk-col li{font-size:13px;color:var(--alv-text);display:flex;align-items:flex-start;gap:8px;line-height:1.5}
+.risk-col li::before{content:'';width:6px;height:6px;border-radius:50%;margin-top:6px;flex-shrink:0}
+.risk-col.bad li::before{background:var(--alv-red)}
+.risk-col.good li::before{background:var(--alv-success)}
+
+/* ─── FOOTER ─── */
+.page-footer{background:var(--alv-navy);color:rgba(255,255,255,.4);padding:40px 60px;text-align:center;font-size:12px;border-top:1px solid rgba(255,255,255,.05)}
+.page-footer .confidential{font-weight:700;color:var(--alv-gold);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px}
+
+/* ─── ANIMATIONS ─── */
+.reveal{opacity:0;transform:translateY(30px);transition:all .6s cubic-bezier(.4,0,.2,1)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+@media(max-width:900px){
+  .hero{padding:100px 24px 60px}
+  .section,.section-full{padding:60px 24px}
+  .layer-content{grid-template-columns:1fr;padding-left:0}
+  .problem-columns{grid-template-columns:1fr}
+  .gov-comparison{grid-template-columns:1fr}
+  .pipeline-card.anchor{grid-column:span 1}
+  .hero-logo{display:none}
+  .cost-tier{grid-template-columns:1fr}
+  .arch-flow{grid-template-columns:1fr;gap:8px}
+  .arch-arrow{transform:rotate(90deg)}
+  .risk-comparison{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const { useState, useEffect, useRef } = React;
+
+/* ─── SCROLL REVEAL HOOK ─── */
+function useReveal() {
+  const ref = useRef(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) { el.classList.add('visible'); obs.unobserve(el); }},
+      { threshold: 0.12 }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+  return ref;
+}
+function Reveal({ children, className = '' }) {
+  const r = useReveal();
+  return <div ref={r} className={`reveal ${className}`}>{children}</div>;
+}
+
+/* ─── ANIMATED COUNTER ─── */
+function Counter({ end, suffix = '', prefix = '', duration = 1800 }) {
+  const [val, setVal] = useState(0);
+  const ref = useRef(null);
+  const started = useRef(false);
+  useEffect(() => {
+    const obs = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting && !started.current) {
+        started.current = true;
+        const start = performance.now();
+        const tick = (now) => {
+          const p = Math.min((now - start) / duration, 1);
+          const ease = 1 - Math.pow(1 - p, 3);
+          setVal(Math.round(ease * end));
+          if (p < 1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+      }
+    }, { threshold: 0.3 });
+    if (ref.current) obs.observe(ref.current);
+    return () => obs.disconnect();
+  }, [end, duration]);
+  return <span ref={ref}>{prefix}{val.toLocaleString()}{suffix}</span>;
+}
+
+/* ─── DATA ─── */
+const momentum = [
+  { icon: '🎯', color: 'blue', stat: '1,800 → 4,800', title: 'Copilot Licenses — Funded Expansion', body: '99.3% adoption on current 1,800. Horia Pataki (reports to CIO) has approved funding for 3,000 additional licenses. Goal: consume before April anniversary.' },
+  { icon: '🏭', color: 'gold', stat: '4+', title: 'Business Units Pulling', body: 'HR, Supply Chain, Executive Leadership, and Engineering — each independently requesting AI enablement. Plus a factory agent for frontline workers.' },
+  { icon: '🤖', color: 'green', stat: 'Active', title: 'Agents Already in Production', body: 'HR chatbot agent expanded beyond initial scope. Factory agent for plant workers in development with Max Glass. Copilot Studio implementation lead (Ina) assigned.' },
+  { icon: '👔', color: 'blue', stat: 'Next Week', title: 'CIO + CFO AI Strategy Session', body: 'Executive roadmap session with CIO, CFO, and Horia Pataki. Asked Microsoft to help define AI cost governance, Copilot economics, and agent economics.' },
+  { icon: '🔧', color: 'orange', stat: '3,000', title: 'Engineers — Innovation Shift', body: '3,000 engineers globally. Goal: shift capacity from operational work to innovation, R&D, and new product development. Asked MS to map where Copilot and agents help.' },
+  { icon: '🌐', color: 'green', stat: 'Confirmed', title: 'Microsoft = Strategic AI Partner', body: 'Horia Pataki actively steering company toward Microsoft as primary AI platform and shutting down competing efforts. New AI ops leader Calin Dicu visiting Utah in August.' },
+];
+
+const agentCategories = [
+  {
+    icon: '⚙️', title: 'Shop Floor & Industrial IoT',
+    vendors: [
+      { name: 'Siemens Xcelerator / MindSphere', desc: 'PLM lifecycle, digital twin, production optimization. Dominant in automotive Tier 1.', status: 'future', tag: 'Industry Standard' },
+      { name: 'PTC ThingWorx / Windchill', desc: 'IoT platform and PLM for connected product data and predictive maintenance.', status: 'future', tag: 'Roadmap' },
+      { name: 'Rockwell FactoryTalk', desc: 'Shop floor automation, OT-to-IT bridge, production scheduling AI.', status: 'future', tag: 'Roadmap' },
+      { name: 'NVIDIA Omniverse / Isaac', desc: 'Simulation, generative design for crash testing, robotics AI for assembly lines.', status: 'future', tag: 'Roadmap' },
+    ]
+  },
+  {
+    icon: '🔄', title: 'ERP & Business Process Agents',
+    vendors: [
+      { name: 'SAP Joule', desc: 'AI copilot embedded across S/4HANA — procurement, finance, supply chain, HR. Autoliv is actively modernizing SAP.', status: 'planned', tag: 'SAP Modernization Active' },
+      { name: 'UiPath Autopilot', desc: 'RPA evolving to AI agents. Autoliv has an active UiPath renewal — automation is embedded in operations.', status: 'active', tag: 'In Use — Renewal Active' },
+      { name: 'ServiceNow Now Assist', desc: 'AI agents for IT, HR service delivery, and procurement. Autoliv is integrating ServiceNow data into Fabric.', status: 'active', tag: 'In Use — Fabric Integration' },
+      { name: 'Celonis Process Intelligence', desc: 'Process mining and execution management. Common in automotive for waste reduction and cycle optimization.', status: 'future', tag: 'Industry Standard' },
+    ]
+  },
+  {
+    icon: '🛡️', title: 'Quality, Safety & Compliance',
+    vendors: [
+      { name: 'IATF 16949 / ISO 26262 Compliance', desc: 'Automotive quality and functional safety standards. AI agents for audit prep, FMEA analysis, and corrective action tracking.', status: 'future', tag: 'Copilot Opportunity' },
+      { name: 'Veridium / Sustainability AI', desc: 'ESG reporting, carbon tracking agents. Autoliv targets carbon neutral operations by 2030.', status: 'planned', tag: 'Evaluating — Viridium.ai Active' },
+      { name: 'Defect Detection / Visual QA', desc: 'Computer vision agents for production line quality — airbag fabric inspection, seatbelt weave analysis.', status: 'future', tag: 'Azure AI Vision' },
+    ]
+  },
+  {
+    icon: '🌐', title: 'Supply Chain & Procurement',
+    vendors: [
+      { name: 'Coupa / Jaggaer', desc: 'Procurement AI agents for supplier risk scoring, spend analytics, contract negotiation assistance.', status: 'future', tag: 'Industry Standard' },
+      { name: 'Blue Yonder / Kinaxis', desc: 'Demand sensing, supply chain planning, inventory optimization with ML/AI.', status: 'future', tag: 'Roadmap' },
+      { name: 'Resilinc / Everstream', desc: 'Supply chain risk monitoring AI. Critical for Tier 1 auto suppliers managing hundreds of sub-suppliers.', status: 'future', tag: 'Roadmap' },
+    ]
+  },
+  {
+    icon: '💻', title: 'Developer & Product Engineering',
+    vendors: [
+      { name: 'GitHub Copilot', desc: 'AI pair programming. Already active at Autoliv with $3.9K/mo ACR — embedded engineering teams use it daily.', status: 'active', tag: 'In Use — $3.9K ACR' },
+      { name: 'Azure AI Foundry', desc: 'Custom model development for crash simulation, material science, sensor fusion algorithms.', status: 'planned', tag: 'Evaluating' },
+      { name: 'Snowflake Cortex', desc: 'Data platform AI — Autoliv has Snowflake and we are actively positioning Fabric surround.', status: 'planned', tag: 'Fabric Surround Active' },
+    ]
+  },
+  {
+    icon: '👤', title: 'Workforce & Collaboration',
+    vendors: [
+      { name: 'Microsoft 365 Copilot', desc: '1,800 licenses at 99.3% adoption. Email triage, meeting summaries, document generation — but only 9% of 20,400 information workers have it.', status: 'active', tag: 'In Use — 1,800 Licenses' },
+      { name: 'Microsoft Copilot Agent Builder', desc: 'Direct Worker agent in pilot. Low-code agent creation for domain-specific workflows — no dev resources needed.', status: 'active', tag: 'In Pilot' },
+      { name: 'Microsoft Copilot for Finance', desc: 'Finance-specific agents for reconciliation, variance analysis, and period close. Opportunity in Listen & Consult.', status: 'planned', tag: 'Evaluating' },
+    ]
+  },
+];
+
+const pipeline = [
+  { val: '≤$4.9M', label: 'E7 W2W — The Anchor', detail: '20,400 IWs × ≤$20/user/mo. Ceiling pricing from TQL/Polaris comps — could go lower. This is THE deal. Everything else collapses into or accelerates around it.', anchor: true },
+  { val: '$2.75M', label: 'E7 Step-Up (CRM today)', detail: 'Currently booked at 50% of IWs. Needs to be reframed as the full 20,400 W2W play at better economics.' },
+  { val: '$2.25M', label: 'EA TUP Renewals', detail: 'Two TUP renewals ($1.15M + $1.1M) closing March 2027. Renewal vehicle — E7 step-up rides on this.' },
+  { val: '$837K', label: 'Copilot Add-On (Bridge)', detail: 'Short-term seats while E7 closes. Should convert into the E7 deal, not stand alone.' },
+  { val: '$652K', label: 'DEXSuite', detail: '20,400 seats. Separate from E7 but reinforces the "every IW gets tools" platform message.' },
+];
+
+const actions = [
+  { num: '01', title: 'Win the CIO/CFO Session', text: 'The executive AI strategy session is NEXT WEEK. Build the cost-governance model they asked for — but frame it as E7 economics vs. seat-by-seat. This is the highest-leverage conversation.' },
+  { num: '02', title: 'Arm Horia Pataki', text: 'He\'s already steering toward Microsoft and shutting down competitors. Give him the E7 business case that covers all 20,400 IWs with agents included. He can carry this to the CIO/CFO.' },
+  { num: '03', title: 'Connect the Workstreams', text: 'HR agent, factory agent, engineering transformation, Copilot Studio — four teams that don\'t see each other\'s momentum. Show how E7 is the platform that unifies them. Meet Calin Dicu in August.' },
+  { num: '04', title: 'Position the OutSystems Exit', text: 'They\'re committed to leaving OutSystems by Aug 2028. Power Platform + Agent Builder is the natural landing zone. E7 licenses include the platform they need to build the replacement.' },
+];
+
+/* ─── APP ─── */
+function App() {
+  const [scrolled, setScrolled] = useState(false);
+  useEffect(() => {
+    const h = () => setScrolled(window.scrollY > 40);
+    window.addEventListener('scroll', h);
+    return () => window.removeEventListener('scroll', h);
+  }, []);
+
+  return (
+    <>
+      {/* NAV */}
+      <nav className={`top-nav ${scrolled ? 'scrolled' : ''}`}>
+        <img src="https://www.autoliv.com/sites/autoliv/themes/boot5/logo.svg" alt="Autoliv" className="nav-logo" />
+        <div className="nav-links">
+          <a href="#momentum">Momentum</a>
+          <a href="#problem">The Gap</a>
+          <a href="#layers">E7 Platform</a>
+          <a href="#agents">Agent Landscape</a>
+          <a href="#cost">Cost Architecture</a>
+          <a href="#pipeline">Pipeline</a>
+          <a href="#risk" style={{ color: 'rgba(255,100,100,.9)' }}>⚠ Risk</a>
+          <a href="#action">Next Steps</a>
+          <span className="nav-badge">INTERNAL</span>
+        </div>
+      </nav>
+
+      {/* HERO */}
+      <section className="hero">
+        <img src="https://www.autoliv.com/sites/autoliv/themes/boot5/logo.svg" alt="" className="hero-logo" />
+        <div className="hero-eyebrow">Internal Strategy Narrative</div>
+        <h1>The Case for <span className="accent">Microsoft 365 E7</span> at Autoliv</h1>
+        <p className="hero-sub">
+          20,400 information workers. 100+ manufacturing facilities. Three business units independently pulling for AI.
+          The organic momentum is real — now we need a platform strategy before each area builds its own silo.
+        </p>
+        <div className="hero-stats">
+          <div className="hero-stat">
+            <div className="hero-stat-val"><span className="unit">≤$</span><Counter end={5} suffix="" prefix="" /><span className="unit">M</span></div>
+            <div className="hero-stat-label">E7 W2W Opportunity</div>
+          </div>
+          <div className="hero-stat">
+            <div className="hero-stat-val"><Counter end={1800} /> <span className="unit">→ 4,800</span></div>
+            <div className="hero-stat-label">Copilot Licenses</div>
+          </div>
+          <div className="hero-stat">
+            <div className="hero-stat-val"><Counter end={99} suffix="" /><span className="unit">.3%</span></div>
+            <div className="hero-stat-label">Adoption Rate</div>
+          </div>
+          <div className="hero-stat">
+            <div className="hero-stat-val"><Counter end={20} suffix="" prefix="$" /><span className="unit">/user ceiling</span></div>
+            <div className="hero-stat-label">E7 Pricing (or better)</div>
+          </div>
+        </div>
+      </section>
+
+      {/* MOMENTUM */}
+      <section className="section" id="momentum">
+        <Reveal>
+          <div className="section-label">Where They Are Today</div>
+          <h2>The Momentum Is <span className="highlight">Real</span></h2>
+          <p className="section-intro">
+            Autoliv isn't asking us to sell them on AI. They're pulling. Horia Pataki — reporting to the CIO — has
+            already secured funding for 3,000 additional Copilot licenses. A CIO/CFO strategy session is happening next week
+            to define AI cost governance. The question isn't whether — it's how fast we get them from seat-by-seat expansion to a platform decision.
+          </p>
+        </Reveal>
+        <div className="momentum-grid">
+          {momentum.map((m, i) => (
+            <Reveal key={i}>
+              <div className="momentum-card">
+                <div className={`mc-icon ${m.color}`}>{m.icon}</div>
+                {m.stat && <div className="mc-stat">{m.stat}</div>}
+                <div className="mc-title">{m.title}</div>
+                <div className="mc-body">{m.body}</div>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </section>
+
+      {/* PROBLEM */}
+      <section className="section-full problem-section" id="problem">
+        <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+          <Reveal>
+            <div className="section-label">The Gap</div>
+            <h2>Organic Is Good for Pilots. <span className="highlight">Fatal for Scale.</span></h2>
+            <p className="section-intro">
+              Every business unit is running their own AI experiment. That's momentum. But without a platform strategy,
+              it becomes fragmentation — separate trainings, separate licenses, separate governance, no economies of scale.
+            </p>
+          </Reveal>
+          <Reveal>
+            <div className="problem-columns">
+              <div className="problem-left">
+                <div className="problem-item">
+                  <div className="problem-bullet">✕</div>
+                  <div className="problem-text">
+                    <h4>Seat-by-Seat Expansion Doesn't Scale</h4>
+                    <p>They just funded 3,000 more Copilot licenses — bringing total to 4,800 out of 20,400 IWs. That's still only 23% penetration. At add-on pricing, covering the remaining 15,600 is a CFO conversation that E7 unit economics wins.</p>
+                  </div>
+                </div>
+                <div className="problem-item">
+                  <div className="problem-bullet">✕</div>
+                  <div className="problem-text">
+                    <h4>Four+ Separate AI Workstreams</h4>
+                    <p>HR agent. Factory agent. Engineering transformation. Copilot Studio implementation. Each with its own lead, its own scope, no shared foundation. The CIO/CFO strategy session next week is the moment to unify.</p>
+                  </div>
+                </div>
+                <div className="problem-item">
+                  <div className="problem-bullet">✕</div>
+                  <div className="problem-text">
+                    <h4>3,000 Engineers Need AI — No Plan Yet</h4>
+                    <p>Leadership wants to shift engineering capacity from operational work to innovation and R&D. They've asked Microsoft to map where Copilot and agents help — but without E7, those engineers don't have licenses.</p>
+                  </div>
+                </div>
+                <div className="problem-item">
+                  <div className="problem-bullet">✕</div>
+                  <div className="problem-text">
+                    <h4>OutSystems Migration + Agent Sprawl</h4>
+                    <p>Committed to moving off OutSystems by August 2028. UiPath agents, SAP Joule, ServiceNow Now Assist, Copilot Studio — all in motion with no governance umbrella. Each vendor building its own agent silo.</p>
+                  </div>
+                </div>
+              </div>
+              <div className="problem-quote">
+                "They just funded 3,000 more seats. They have 3,000 engineers they want to shift from operational to innovation. They have a CIO/CFO strategy session next week. They're buying seat by seat when E7 covers all 20,400 IWs at better economics with agents included. The platform conversation is now."
+                <cite>— Internal Strategy Assessment, July 15, 2026</cite>
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* THREE LAYERS */}
+      <section className="section-full layers-section" id="layers">
+        <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+          <Reveal>
+            <div className="section-label">The E7 Platform</div>
+            <h2>Three Layers. One Decision.</h2>
+            <p className="section-intro">
+              E7 isn't just a license upgrade. It's the platform decision that solves the training problem, the agent economics problem, and the governance problem — all at once.
+            </p>
+          </Reveal>
+
+          {/* LAYER 1 */}
+          <Reveal>
+            <div className="layer-block">
+              <div className="layer-header">
+                <div className="layer-num">01</div>
+                <div className="layer-title-group">
+                  <h3>Copilot on Every Desk — At Economics That Change the Conversation</h3>
+                  <p>Stop justifying $23/license per business unit. Bundle it into E7 and flip the value equation.</p>
+                </div>
+              </div>
+              <div className="layer-content">
+                <div className="layer-narrative">
+                  <p>
+                    Today, every business unit that wants Copilot has to justify the cost at <strong>$23 per user per month</strong>. That means building a business case, proving ROI before adoption, and convincing finance — for each department, independently. HR does it. SCM does it. Engineering does it. Four separate justification exercises for the same tool.
+                  </p>
+                  <p style={{ marginTop: 16 }}>
+                    When you bundle Copilot into E7, the per-user cost of that Copilot license <strong>drops dramatically</strong>. The business value doesn't change — it's still email triage, meeting summaries, document generation, supplier correspondence, ECO routing. But the <strong>value-to-cost ratio explodes</strong>. You stop looking at Copilot as a line item that needs a business case and start treating it as an <strong>empowerment and enablement tool</strong> at scaled pricing.
+                  </p>
+                  <p style={{ marginTop: 16 }}>
+                    For 3,000 engineers who leadership wants to shift from operational work to innovation — basic Copilot workflows on code documentation, quality reports, and supplier emails are massive. And they don't need a per-seat business justification to get it. It's just there.
+                  </p>
+                </div>
+                <div className="layer-points">
+                  <div className="layer-point"><div className="layer-point-icon">✓</div><p><strong>Flip the value equation</strong> — At $23/user add-on, every BU needs ROI justification. E7 at ≤$20/user bundles Copilot + agents + governance — the Copilot cost effectively drops to near-zero incremental</p></div>
+                  <div className="layer-point"><div className="layer-point-icon">✓</div><p><strong>Empowerment, not justification</strong> — Copilot becomes a baseline tool for all 20,400 IWs, not a premium add-on each department fights for</p></div>
+                  <div className="layer-point"><div className="layer-point-icon">✓</div><p><strong>One enablement strategy</strong> — Universal foundation training + department deep dives. Not four separate programs with four separate budgets</p></div>
+                  <div className="layer-point"><div className="layer-point-icon">✓</div><p><strong>20,400 IWs — not frontline</strong> — Frontline has different use cases and economics. This is about every information worker having AI on their desk</p></div>
+                </div>
+              </div>
+            </div>
+          </Reveal>
+          <Reveal>
+            <div className="peer-proof">
+              <div className="peer-proof-title">Peer Proof — What Happens When You Go All-In</div>
+              <div className="peer-proof-items">
+                <div className="peer-item">
+                  <h5>TQL — 10,000 Employees</h5>
+                  <div className="peer-stat">920 agents in 6 weeks</div>
+                  <p>Went from Copilot pilots to E7 after their CEO saw a single agent drive +21.4% customer adds vs. control. Agent Builder — included in E7 — is what their sales floor used to build it. By late April, 920 user-created agents, 247 active daily.</p>
+                </div>
+                <div className="peer-item">
+                  <h5>Polaris — Manufacturer</h5>
+                  <div className="peer-stat">E7 Closed/Won</div>
+                  <p>Fellow manufacturer that closed E7. Using Copilot across engineering, supply chain, and frontline operations. Proving that the E7 platform play works for manufacturing, not just services companies.</p>
+                </div>
+              </div>
+            </div>
+          </Reveal>
+
+          {/* LAYER 2 */}
+          <Reveal>
+            <div className="layer-block" style={{ marginTop: 80 }}>
+              <div className="layer-header">
+                <div className="layer-num">02</div>
+                <div className="layer-title-group">
+                  <h3>Copilot Becomes the UI for AI — Agents at Fixed Cost</h3>
+                  <p>Without Copilot licenses, agent consumption is variable cost. With E7, it becomes mostly fixed.</p>
+                </div>
+              </div>
+              <div className="layer-content">
+                <div className="layer-narrative">
+                  <p>
+                    Here's the economics that changes the agentic AI conversation: <strong>when users don't have Copilot licenses, every agent interaction is variable cost</strong> — Studio messages, agent consumption packs, per-interaction billing. That's fine for a pilot. It's a CFO nightmare at 20,400 users.
+                  </p>
+                  <p style={{ marginTop: 16 }}>
+                    When users <strong>do</strong> have Copilot through E7, the agent economics flip. Business-to-employee agent scenarios become <strong>mostly fixed cost</strong>. Agent Builder is included. First-party agents — IT Help Desk, HR Self-Service, knowledge retrieval — are included. The variable cost disappears for the scenarios that matter most at scale.
+                  </p>
+                  <p style={{ marginTop: 16 }}>
+                    This is what TQL proved: their sales floor used <strong>Agent Builder — included in E7</strong> — to build 920 agents in 6 weeks. No consumption packs. No variable billing. The CEO saw a single agent drive +21.4% customer adds and mandated company-wide rollout. Imagine what Autoliv's 3,000 engineers and 20,400 IWs build when the economics are fixed.
+                  </p>
+                </div>
+                <div className="layer-points">
+                  <div className="layer-point"><div className="layer-point-icon">✓</div><p><strong>Variable → Fixed</strong> — Without Copilot: Studio/agent consumption is per-message variable cost. With E7: employee-facing agents run at fixed cost</p></div>
+                  <div className="layer-point"><div className="layer-point-icon">✓</div><p><strong>Agent Builder included</strong> — Non-technical users build domain-specific agents. Quality audit, supplier risk, safety incident, ECO routing — no dev resources needed</p></div>
+                  <div className="layer-point"><div className="layer-point-icon">✓</div><p><strong>First-party agents included</strong> — IT Help Desk, HR Self-Service, knowledge agents ship with the license. Day-one value.</p></div>
+                  <div className="layer-point"><div className="layer-point-icon">✓</div><p><strong>TQL proof</strong> — 920 user-created agents, 247 active daily, zero incremental licensing cost. That's what fixed economics enables.</p></div>
+                </div>
+              </div>
+            </div>
+          </Reveal>
+
+          {/* LAYER 3 */}
+          <Reveal>
+            <div className="layer-block" style={{ marginTop: 80 }}>
+              <div className="layer-header">
+                <div className="layer-num">03</div>
+                <div className="layer-title-group">
+                  <h3>The Control Plane for Everything That Comes Next</h3>
+                  <p>Agent 365 governance for first-party, third-party, and custom agents — all under one roof.</p>
+                </div>
+              </div>
+              <div className="layer-content">
+                <div className="layer-narrative">
+                  <p>
+                    This is where E7 becomes <strong>strategic infrastructure, not just a license</strong>. Autoliv already has agent-capable systems across their stack: UiPath for RPA, SAP Joule coming with their ERP modernization, ServiceNow Now Assist for IT operations. Each vendor is building AI agents into their platform.
+                  </p>
+                  <p style={{ marginTop: 16 }}>
+                    Without a control plane, each system becomes an <strong>autonomous agent silo</strong> — different governance, different security models, different audit trails. For a company that makes safety-critical automotive components under IATF 16949 and ISO 26262, that's not just inefficient. It's a compliance risk.
+                  </p>
+                  <p style={{ marginTop: 16 }}>
+                    <strong>Agent 365</strong>, included with E7, gives Autoliv a unified governance layer across all agent types. And when they're ready for custom product AI — crash simulation models, sensor fusion algorithms, material science applications — <strong>Azure AI Foundry</strong> plugs into the same governance framework.
+                  </p>
+                </div>
+                <div className="layer-points">
+                  <div className="layer-point"><div className="layer-point-icon">✓</div><p><strong>Agent 365 governance</strong> — Unified catalog, approval workflows, and audit trail across ALL agent systems</p></div>
+                  <div className="layer-point"><div className="layer-point-icon">✓</div><p><strong>Third-party agent management</strong> — UiPath Autopilot, SAP Joule, ServiceNow Now Assist all governed from one pane</p></div>
+                  <div className="layer-point"><div className="layer-point-icon">✓</div><p><strong>Custom AI governance</strong> — Azure AI Foundry for product development, R&D, simulation — covered by the same framework</p></div>
+                  <div className="layer-point"><div className="layer-point-icon">✓</div><p><strong>Safety-critical compliance</strong> — IATF 16949 and ISO 26262 demand traceability. Agent 365 provides the audit trail manufacturers need.</p></div>
+                </div>
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* AGENT LANDSCAPE */}
+      <section className="section-full agent-landscape" id="agents">
+        <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+          <Reveal>
+            <div className="section-label">Manufacturing Agent Landscape</div>
+            <h2>Autoliv's <span className="highlight">Agent Ecosystem</span> — Today and Tomorrow</h2>
+            <p className="section-intro">
+              This is what Agent 365 governs. Every category below is either already active at Autoliv (confirmed by MSX pipeline) or standard for automotive Tier 1 suppliers. Without a unified control plane, each becomes an autonomous silo.
+            </p>
+            <div style={{ display: 'flex', gap: 16, marginBottom: 32, flexWrap: 'wrap' }}>
+              <span style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, color: 'var(--alv-muted)' }}>
+                <span className="agent-vendor-status active" style={{ position: 'static' }}></span> Active at Autoliv
+              </span>
+              <span style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, color: 'var(--alv-muted)' }}>
+                <span className="agent-vendor-status planned" style={{ position: 'static' }}></span> Evaluating / In Pipeline
+              </span>
+              <span style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, color: 'var(--alv-muted)' }}>
+                <span className="agent-vendor-status future" style={{ position: 'static' }}></span> Industry Standard / Roadmap
+              </span>
+            </div>
+          </Reveal>
+          <div className="agent-grid">
+            {agentCategories.map((cat, i) => (
+              <Reveal key={i}>
+                <div className="agent-category">
+                  <div className="agent-cat-header">
+                    <span className="agent-cat-icon">{cat.icon}</span>
+                    <span className="agent-cat-title">{cat.title}</span>
+                  </div>
+                  <div className="agent-cat-body">
+                    {cat.vendors.map((v, j) => (
+                      <div className="agent-vendor" key={j}>
+                        <span className={`agent-vendor-status ${v.status}`}></span>
+                        <div className="agent-vendor-info">
+                          <h5>{v.name}</h5>
+                          <p>{v.desc}</p>
+                          <span className={`agent-vendor-tag ${v.status === 'active' ? 'in-use' : v.status === 'planned' ? 'evaluating' : 'roadmap'}`}>{v.tag}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+
+          {/* GOVERNANCE CALLOUT */}
+          <Reveal>
+            <div className="governance-callout">
+              <h3>Why Agent 365 Changes Everything for Manufacturing</h3>
+              <p>
+                A car company making airbags, seatbelts, and steering wheels can't afford autonomous agent sprawl.
+                When UiPath bots trigger SAP workflows that feed ServiceNow tickets that route to custom Azure AI models — who governs that chain?
+              </p>
+              <div className="gov-comparison">
+                <div className="gov-col without">
+                  <h4>Without Agent 365</h4>
+                  <ul>
+                    <li>Each vendor's AI operates in isolation</li>
+                    <li>No unified audit trail across agent systems</li>
+                    <li>Shadow agents built by departments with no IT visibility</li>
+                    <li>Compliance gaps across IATF 16949, ISO 26262, SOX</li>
+                    <li>Incident response requires checking 5+ vendor consoles</li>
+                    <li>No way to measure cross-platform agent ROI</li>
+                  </ul>
+                </div>
+                <div className="gov-col with">
+                  <h4>With Agent 365</h4>
+                  <ul>
+                    <li>Unified agent catalog across first-party, third-party, and custom</li>
+                    <li>Single audit trail for compliance and safety reporting</li>
+                    <li>Approved agent marketplace with IT governance gates</li>
+                    <li>Automated compliance checks against automotive standards</li>
+                    <li>One dashboard for all agent activity, usage, and incidents</li>
+                    <li>Cross-platform ROI measurement and optimization</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* COST ARCHITECTURE */}
+      <section className="section-full cost-arch-section" id="cost">
+        <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+          <Reveal>
+            <div className="section-label">AI Cost Architecture</div>
+            <h2>Not Everyone Needs <span className="highlight">Everything</span> — And That's the Point</h2>
+            <p className="section-intro">
+              E7 is the foundation. But Cowork, Scout, and advanced AI capabilities have their own cost profiles.
+              The strategy isn't "give everyone everything" — it's tiered deployment with policies and cost controls
+              that match the right tool to the right user at the right price.
+            </p>
+          </Reveal>
+          <Reveal>
+            <div className="cost-tier">
+              <div className="cost-tier-card">
+                <div className="cost-tier-header tier-foundation">
+                  <h4>Foundation: E7 + Copilot</h4>
+                  <div className="tier-who">All 20,400 Information Workers</div>
+                </div>
+                <div className="cost-tier-body">
+                  <div className="tier-cost">Bundled into E7 — Fixed Cost</div>
+                  <ul>
+                    <li>Copilot in every M365 app — email, Teams, Word, Excel, PowerPoint</li>
+                    <li>Agent Builder — build department-specific agents, no dev resources</li>
+                    <li>First-party agents — IT Help Desk, HR Self-Service, knowledge search</li>
+                    <li>Agent 365 governance — unified catalog, approval workflows, audit trail</li>
+                    <li>Business-to-employee agents run at fixed cost, not per-message</li>
+                  </ul>
+                </div>
+              </div>
+              <div className="cost-tier-card">
+                <div className="cost-tier-header tier-targeted">
+                  <h4>Targeted: Cowork</h4>
+                  <div className="tier-who">Managers, Analysts, Power Users</div>
+                </div>
+                <div className="cost-tier-body">
+                  <div className="tier-cost">Policy-Controlled — Assigned by Role</div>
+                  <ul>
+                    <li>Deep multi-turn reasoning across larger problem sets</li>
+                    <li>Multi-model access — route different tasks to the right model</li>
+                    <li>Complex analysis: financial modeling, supply chain optimization, R&D exploration</li>
+                    <li>Not everyone needs this — deploy via policy to roles that justify the cost</li>
+                    <li>Built-in cost controls and usage caps prevent runaway spend</li>
+                  </ul>
+                </div>
+              </div>
+              <div className="cost-tier-card">
+                <div className="cost-tier-header tier-precision">
+                  <h4>Precision: Scout</h4>
+                  <div className="tier-who">Citizen Developers, AI Champions</div>
+                </div>
+                <div className="cost-tier-body">
+                  <div className="tier-cost">Targeted Deployment — Builder Tier</div>
+                  <ul>
+                    <li>Full desktop AI environment for building and composing workflows</li>
+                    <li>Business builders who create the next wave of useful agents</li>
+                    <li>Inspect, automate, and orchestrate across M365 + custom data</li>
+                    <li>Small user base, high impact — your AI power users and champions</li>
+                    <li>Feeds innovation back into the Agent Builder ecosystem for everyone</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </Reveal>
+
+          {/* AGENT ARCHITECTURE PATTERN */}
+          <Reveal>
+            <div className="arch-pattern">
+              <h3>The Cost-Efficient Agent Architecture Pattern</h3>
+              <p className="arch-sub">
+                Not every agent needs to be running expensive models 24/7. The pattern that keeps costs down:
+                thin collectors that listen cheap, intelligent agents that only engage when there's something material.
+              </p>
+              <div className="arch-flow">
+                <div className="arch-step">
+                  <h5>Thin Collectors</h5>
+                  <p>Lightweight listeners that watch email, Teams, calendar, CRM, and operational data. Minimal token usage — they just observe and flag.</p>
+                  <div className="arch-cost">Low cost — pennies/day</div>
+                </div>
+                <div className="arch-arrow">→</div>
+                <div className="arch-step">
+                  <h5>Intelligent Routing</h5>
+                  <p>Signals get classified and prioritized. Only material events — anomalies, decisions needed, deadlines approaching — get promoted to action.</p>
+                  <div className="arch-cost">Near-zero — rules-based</div>
+                </div>
+                <div className="arch-arrow">→</div>
+                <div className="arch-step">
+                  <h5>Agentic Action</h5>
+                  <p>Full AI reasoning only fires when there's something worth acting on. Draft, propose, escalate — then go quiet until the next material event.</p>
+                  <div className="arch-cost">Pay only for value</div>
+                </div>
+              </div>
+              <p style={{ fontSize: 14, color: 'var(--alv-muted)', marginTop: 24, lineHeight: 1.7 }}>
+                This is how you scale agentic AI without runaway costs. Most of the day, agents are listening — not thinking.
+                When they do think, it's because something actually matters. The architecture keeps token costs proportional
+                to value delivered, not proportional to time running. Combined with E7's fixed-cost foundation for employee-facing
+                scenarios, the total cost model is predictable, governable, and defensible to a CFO.
+              </p>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* PIPELINE */}
+      <section className="section-full pipeline-section" id="pipeline">
+        <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+          <Reveal>
+            <div className="section-label">Pipeline View</div>
+            <h2>The E7 W2W Deal: <span className="highlight">≤$4.9M Annual</span></h2>
+            <p className="section-intro">
+              20,400 information workers × ≤$20/user/month = up to ~$4.9M annual. That's ceiling pricing based on TQL and Polaris comps — 
+              we may be able to go more aggressive. At that price, Autoliv gets Copilot + Agent Builder + Agent 365 for less than they'd 
+              pay stacking $23/user Copilot add-ons across even half their IWs.
+            </p>
+          </Reveal>
+          <Reveal>
+            <div className="pipeline-grid">
+              {pipeline.map((p, i) => (
+                <div className={`pipeline-card ${p.anchor ? 'anchor' : ''}`} key={i}>
+                  <div className="pc-val">{p.val}</div>
+                  <div className="pc-label">{p.label}</div>
+                  <div className="pc-detail">{p.detail}</div>
+                </div>
+              ))}
+            </div>
+          </Reveal>
+          <Reveal>
+            <div className="consumption-row">
+              <div className="consumption-chip">Azure Arc & Defender <span className="chip-val">$130K/mo</span></div>
+              <div className="consumption-chip">Defender for Cloud <span className="chip-val">$28.8K/mo</span></div>
+              <div className="consumption-chip">Azure OpenAI <span className="chip-val">$18K/mo</span></div>
+              <div className="consumption-chip">DB Modernization <span className="chip-val">$20K/mo</span></div>
+              <div className="consumption-chip">GitHub Copilot <span className="chip-val">$3.9K/mo</span></div>
+              <div className="consumption-chip">Fabric + Snowflake <span className="chip-val">$6.2K/mo</span></div>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* DEAL RISK: RESERVATIONS */}
+      <section className="section-full risk-section" id="risk">
+        <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+          <Reveal>
+            <div className="section-label" style={{ color: 'var(--alv-red)' }}>Deal Execution Risk</div>
+            <h2 style={{ color: 'var(--alv-red)' }}>Reservations Are <span style={{ color: 'var(--alv-navy)' }}>Not Commits</span></h2>
+          </Reveal>
+          <Reveal>
+            <div className="risk-banner">
+              <div className="risk-badge">Critical Risk</div>
+              <h3>The 3,000 New Licenses Must Be Bulk Purchases — Not Reservations</h3>
+              <p>
+                Autoliv has approved funding for 3,000 additional Copilot licenses. The default motion will be reservations —
+                which means they can <strong>true those down before anniversary and we don't get paid</strong>. This is not acceptable. 
+                We need to drive a <strong>bulk purchase commitment now</strong> that hits mid-term and locks in payment at anniversary.
+                The E7 conversation is the vehicle: why reserve 3,000 seats at add-on pricing when E7 covers all 20,400 IWs 
+                at better unit economics with no true-down risk?
+              </p>
+              <div className="risk-comparison">
+                <div className="risk-col bad">
+                  <h4>Reservations (Current Path)</h4>
+                  <ul>
+                    <li>Customer can true down at any time</li>
+                    <li>We don't get paid until consumption is proven</li>
+                    <li>Doesn't hit mid-term — defers revenue recognition</li>
+                    <li>Reinforces seat-by-seat mentality vs. platform</li>
+                    <li>Each BU reserves independently — no leverage</li>
+                  </ul>
+                </div>
+                <div className="risk-col good">
+                  <h4>Bulk Purchase via E7 (Target Path)</h4>
+                  <ul>
+                    <li>Committed spend — no true-down risk</li>
+                    <li>Hits mid-term and we get paid at anniversary</li>
+                    <li>Better per-user economics for the customer</li>
+                    <li>Agents, governance, and training included</li>
+                    <li>One platform decision replaces four separate asks</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ACTION */}
+      <section className="section-full action-section" id="action">
+        <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+          <Reveal>
+            <div className="section-label">What We Do Next</div>
+            <h2>Four Moves to Close</h2>
+          </Reveal>
+          <Reveal>
+            <div className="action-steps">
+              {actions.map((a, i) => (
+                <div className="action-step" key={i}>
+                  <div className="action-step-num">{a.num}</div>
+                  <h4>{a.title}</h4>
+                  <p>{a.text}</p>
+                </div>
+              ))}
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* FOOTER */}
+      <footer className="page-footer">
+        <div className="confidential">Microsoft Internal — Not for Customer Distribution</div>
+        <p>Autoliv E7 Strategy Narrative — Account Team Reference — July 2026</p>
+        <p style={{ marginTop: 8 }}>Built with live MSX pipeline data. Numbers reflect current CRM state as of {new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}.</p>
+      </footer>
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>
