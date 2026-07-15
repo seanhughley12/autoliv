@@ -216,6 +216,30 @@ body{font-family:'Inter',system-ui,sans-serif;background:#f8fafb;color:#1a1a2e;l
 .arch-step .arch-cost{font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;color:var(--alv-success);margin-top:8px;padding:3px 8px;background:rgba(45,138,78,.06);border-radius:4px;display:inline-block}
 .arch-arrow{font-size:20px;color:var(--alv-border);text-align:center}
 
+/* ─── MODEL TIERING ─── */
+.model-tier-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:32px}
+.model-tier-card{border-radius:var(--alv-radius);padding:24px;text-align:center;border:1px solid var(--alv-border)}
+.model-tier-card.tier-flash{background:linear-gradient(135deg,#f0faf4,#e8f5e9);border-color:rgba(45,138,78,.2)}
+.model-tier-card.tier-standard{background:linear-gradient(135deg,#e6f0f8,#dbeaf5);border-color:rgba(0,84,149,.15)}
+.model-tier-card.tier-heavy{background:linear-gradient(135deg,#fdf6ec,#fff3e0);border-color:rgba(212,168,67,.3)}
+.model-tier-card.tier-frontier{background:linear-gradient(135deg,#f3e5f5,#ede7f6);border-color:rgba(128,0,128,.15)}
+.model-tier-card h5{font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:700;color:var(--alv-navy);margin-bottom:4px}
+.model-tier-card .model-cost{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:800;margin:8px 0}
+.model-tier-card .model-cost-sub{font-size:11px;color:var(--alv-muted);margin-bottom:12px}
+.model-tier-card .model-use{font-size:12px;color:var(--alv-muted);line-height:1.5;text-align:left}
+.model-tier-card .model-use strong{color:var(--alv-navy)}
+
+/* ─── COST MATH TABLE ─── */
+.cost-table-wrap{margin-top:48px;overflow-x:auto}
+.cost-table{width:100%;border-collapse:collapse;font-size:14px}
+.cost-table th{background:var(--alv-navy);color:#fff;padding:12px 16px;text-align:left;font-size:12px;letter-spacing:.5px;text-transform:uppercase;font-weight:700}
+.cost-table td{padding:12px 16px;border-bottom:1px solid var(--alv-border)}
+.cost-table tr:nth-child(even){background:rgba(0,84,149,.02)}
+.cost-table .highlight-row{background:rgba(45,138,78,.06);font-weight:600}
+.cost-table .highlight-row td{color:var(--alv-navy)}
+.cost-table .warn-row{background:rgba(192,57,43,.04)}
+.cost-table .num{font-family:'Space Grotesk',sans-serif;font-weight:700;text-align:right}
+
 /* ─── DEAL RISK ALERT ─── */
 .risk-section{background:#fdf2f2;border-top:3px solid var(--alv-red);border-bottom:1px solid #f0d0d0}
 .risk-banner{background:var(--alv-surface);border:2px solid var(--alv-red);border-radius:var(--alv-radius);padding:36px 40px;margin-top:40px;position:relative;overflow:hidden}
@@ -253,6 +277,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:#f8fafb;color:#1a1a2e;l
   .pipeline-card.anchor{grid-column:span 1}
   .hero-logo{display:none}
   .cost-tier{grid-template-columns:1fr}
+  .model-tier-grid{grid-template-columns:1fr 1fr}
   .arch-flow{grid-template-columns:1fr;gap:8px}
   .arch-arrow{transform:rotate(90deg)}
   .risk-comparison{grid-template-columns:1fr}
@@ -825,6 +850,115 @@ function App() {
               </p>
             </div>
           </Reveal>
+
+          {/* MODEL TIERING */}
+          <Reveal>
+            <div className="arch-pattern" style={{ marginTop: 32 }}>
+              <h3>Model Tiering: Right Model for the Job</h3>
+              <p className="arch-sub">
+                When agents DO need to reason, not every task needs the most expensive model.
+                Route each job to the model that fits. This is where cost discipline lives.
+              </p>
+              <div className="model-tier-grid">
+                <div className="model-tier-card tier-flash">
+                  <h5>Flash / Mini</h5>
+                  <div className="model-cost" style={{ color: 'var(--alv-success)' }}>$0.001</div>
+                  <div className="model-cost-sub">per 1K tokens (approx)</div>
+                  <div className="model-use">
+                    <strong>Use for:</strong> Classification, routing, simple extraction, yes/no decisions, data validation, tagging.
+                    <br/><br/>
+                    <strong>Autoliv examples:</strong> Is this email from a supplier? Does this ECO need review? Route this ticket.
+                  </div>
+                </div>
+                <div className="model-tier-card tier-standard">
+                  <h5>Standard (GPT-4o, Sonnet)</h5>
+                  <div className="model-cost" style={{ color: 'var(--alv-primary)' }}>$0.01</div>
+                  <div className="model-cost-sub">per 1K tokens (approx)</div>
+                  <div className="model-use">
+                    <strong>Use for:</strong> Summarization, drafting, meeting recaps, document analysis, code review, general reasoning.
+                    <br/><br/>
+                    <strong>Autoliv examples:</strong> Summarize this supplier call. Draft a quality report. Analyze this safety audit.
+                  </div>
+                </div>
+                <div className="model-tier-card tier-heavy">
+                  <h5>Heavy (Opus, o1)</h5>
+                  <div className="model-cost" style={{ color: 'var(--alv-gold)' }}>$0.06</div>
+                  <div className="model-cost-sub">per 1K tokens (approx)</div>
+                  <div className="model-use">
+                    <strong>Use for:</strong> Complex multi-step reasoning, financial modeling, code generation, strategic analysis.
+                    <br/><br/>
+                    <strong>Autoliv examples:</strong> Model supply chain scenarios. Build cost projections. Architect a new agent workflow.
+                  </div>
+                </div>
+                <div className="model-tier-card tier-frontier">
+                  <h5>Frontier (Research)</h5>
+                  <div className="model-cost" style={{ color: '#7b1fa2' }}>$0.15+</div>
+                  <div className="model-cost-sub">per 1K tokens (approx)</div>
+                  <div className="model-use">
+                    <strong>Use for:</strong> R&D problems, novel engineering challenges, material science, crash simulation interpretation.
+                    <br/><br/>
+                    <strong>Autoliv examples:</strong> Rare. Research-grade. Maybe 1-2 users. Foundry territory.
+                  </div>
+                </div>
+              </div>
+              <p style={{ fontSize: 14, color: 'var(--alv-muted)', marginTop: 24, lineHeight: 1.7 }}>
+                <strong style={{ color: 'var(--alv-navy)' }}>The cost impact is massive.</strong> An agent that routes 95% of work to Flash ($0.001/1K) and only sends 5% to Standard ($0.01/1K) costs 10x less than one that sends everything to Standard.
+                Multiply that across 25 agents and thousands of daily interactions. Model tiering is not optimization. It is the difference between $500/month and $5,000/month for the same output quality.
+              </p>
+            </div>
+          </Reveal>
+
+          {/* COST COMPARISON TABLES */}
+          <Reveal>
+            <div className="arch-pattern" style={{ marginTop: 32 }}>
+              <h3>The Math: Copilot Add-On vs. E7</h3>
+              <p className="arch-sub">Autoliv-specific numbers. $23/user add-on pricing vs. E7 at $20 ceiling (could be lower).</p>
+              <div className="cost-table-wrap">
+                <table className="cost-table">
+                  <thead>
+                    <tr><th>Path</th><th>Users</th><th>$/User/Mo</th><th className="num">Annual Cost</th><th>What You Get</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr className="warn-row"><td>Stay the course (reservations)</td><td>4,800</td><td>$23</td><td className="num">$1.32M</td><td>Copilot only. True-down risk. No agents.</td></tr>
+                    <tr><td>Buy Copilot for all IWs (add-on)</td><td>20,400</td><td>$23</td><td className="num">$5.63M</td><td>Copilot only. No agents. No governance.</td></tr>
+                    <tr className="highlight-row"><td>E7 W2W (ceiling pricing)</td><td>20,400</td><td>≤$20</td><td className="num">≤$4.9M</td><td>Copilot + Agent Builder + Agent 365 + Security</td></tr>
+                    <tr className="highlight-row"><td>E7 W2W (aggressive)</td><td>20,400</td><td>~$15</td><td className="num">~$3.7M</td><td>Same bundle. Better deal.</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <p style={{ fontSize: 14, color: 'var(--alv-navy)', marginTop: 16, fontWeight: 600 }}>
+                E7 at ceiling costs LESS than Copilot add-ons for all IWs. And you get agents and governance included.
+              </p>
+            </div>
+          </Reveal>
+
+          {/* AGENT VARIABLE COST PROJECTION */}
+          <Reveal>
+            <div className="arch-pattern" style={{ marginTop: 32 }}>
+              <h3>Agent Costs: Variable (No E7) vs. Fixed (E7)</h3>
+              <p className="arch-sub">If Autoliv builds agents without E7, every interaction is a variable charge. With E7, employee-facing agents are fixed cost.</p>
+              <div className="cost-table-wrap">
+                <table className="cost-table">
+                  <thead>
+                    <tr><th>Month</th><th>Agents Running</th><th className="num">Variable Cost (No E7)</th><th className="num">Fixed Cost (E7)</th><th>Delta</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>Month 1</td><td>3 (HR, Factory, Finance)</td><td className="num">~$450/mo</td><td className="num">$0</td><td>$450 saved</td></tr>
+                    <tr><td>Month 2</td><td>5</td><td className="num">~$750/mo</td><td className="num">$0</td><td>$750 saved</td></tr>
+                    <tr><td>Month 3</td><td>8</td><td className="num">~$1,200/mo</td><td className="num">$0</td><td>$1,200 saved</td></tr>
+                    <tr><td>Month 4</td><td>12</td><td className="num">~$1,800/mo</td><td className="num">$0</td><td>$1,800 saved</td></tr>
+                    <tr><td>Month 5</td><td>18</td><td className="num">~$2,700/mo</td><td className="num">$0</td><td>$2,700 saved</td></tr>
+                    <tr><td>Month 6</td><td>25</td><td className="num">~$3,750/mo</td><td className="num">$0</td><td>$3,750 saved</td></tr>
+                    <tr className="highlight-row"><td>6-Month Total</td><td>25 agents</td><td className="num">~$64K</td><td className="num">$0</td><td>$64K saved</td></tr>
+                    <tr className="warn-row"><td>At TQL scale (920 agents)</td><td>920</td><td className="num">$138K+/mo</td><td className="num">$0</td><td>Unpredictable vs. zero</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <p style={{ fontSize: 14, color: 'var(--alv-muted)', marginTop: 16, lineHeight: 1.7 }}>
+                Conservative estimate at ~$0.01/message, 500 queries/agent/day. Real cost accelerates as adoption grows. With E7, finance does not have to forecast this. It is zero incremental.
+              </p>
+            </div>
+          </Reveal>
         </div>
       </section>
 
@@ -875,28 +1009,37 @@ function App() {
               <div className="risk-badge">Critical Risk</div>
               <h3>The 3,000 New Licenses Need to Be Purchases, Not Reservations</h3>
               <p>
-                Autoliv approved funding for 3,000 more Copilot licenses. If they stay as reservations, Autoliv can <strong>true them down before the anniversary and we do not get paid</strong>.
-                We need a <strong>bulk purchase now</strong> that lands mid-term and pays at anniversary. E7 is the cleaner motion. Why reserve 3,000 add-on seats when E7 covers all 20,400 IWs at better unit economics and avoids true-down risk?
+                Autoliv approved funding for 3,000 more Copilot licenses. Three paths exist. Reservations are the worst.
               </p>
-              <div className="risk-comparison">
+              <div className="risk-comparison" style={{ gridTemplateColumns: '1fr 1fr 1fr' }}>
                 <div className="risk-col bad">
-                  <h4>Reservations (Current Path)</h4>
+                  <h4>Reservations (Worst)</h4>
                   <ul>
-                    <li>Customer can true down at any time</li>
-                    <li>We don't get paid until consumption is proven</li>
+                    <li>Customer can true down at any point</li>
+                    <li>We do not get paid until consumption is proven</li>
                     <li>Does not hit mid-term. Revenue shifts out.</li>
                     <li>Keeps the team in a seat-by-seat motion</li>
                     <li>Each BU books separately. No platform move.</li>
                   </ul>
                 </div>
                 <div className="risk-col good">
-                  <h4>Bulk Purchase via E7 (Target Path)</h4>
+                  <h4>Bulk Copilot Purchase Now (Good)</h4>
                   <ul>
                     <li>Committed spend. No true-down risk.</li>
                     <li>Hits mid-term and we get paid at anniversary</li>
-                    <li>Better per-user economics for the customer</li>
+                    <li>Better per-user pricing at volume</li>
+                    <li>Bridges to the E7 conversation at renewal</li>
+                    <li>Shows finance the adoption curve for E7 case</li>
+                  </ul>
+                </div>
+                <div className="risk-col good" style={{ borderColor: 'rgba(0,84,149,.2)', background: 'rgba(0,84,149,.04)' }}>
+                  <h4 style={{ color: 'var(--alv-primary)' }}>E7 W2W Now or at Renewal (Best)</h4>
+                  <ul>
+                    <li>Covers all 20,400 IWs in one motion</li>
+                    <li>Lower per-user cost than stacking add-ons</li>
                     <li>Agents, governance, and training included</li>
-                    <li>One platform decision replaces four separate asks</li>
+                    <li>One decision replaces four separate asks</li>
+                    <li>If not now, position for April renewal vehicle</li>
                   </ul>
                 </div>
               </div>
