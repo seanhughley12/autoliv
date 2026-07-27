@@ -14,3 +14,6 @@
 .mirror__punch{margin-top:16px;font-size:clamp(14px,1.4vw,18px);line-height:1.5;color:var(--white);max-width:82ch}
 .mirror__punch b{color:var(--azure)}
 @media (max-width:860px){.mirror__grid{grid-template-columns:repeat(72,1fr)}}
+
+/* proofs-single */
+.proofs__grid{grid-template-columns:minmax(0,640px)!important;justify-content:center}.proofs__grid .proof{width:100%}
