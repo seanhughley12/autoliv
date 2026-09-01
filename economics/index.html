@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Autoliv AI Economics — Foundation vs. Continue Incrementally</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --azure:#009FE3; --blue:#005495; --navy:#0D2347; --ink:#12233F;
+    --paper:#FFFFFF; --wash:#F4F7FB; --wash2:#EAF1F8; --line:#DBE4EE;
+    --mute:#5B6B82; --mute2:#8A97AB; --good:#0E7C4B; --warn:#B4741A;
+    --mono:'IBM Plex Mono',monospace; --sans:'Archivo','Segoe UI',sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#5a6274;font-family:var(--sans);color:var(--ink);-webkit-font-smoothing:antialiased;padding:24px 0}
+  .sheet{width:1275px;min-height:1650px;background:var(--paper);margin:0 auto 26px;padding:64px 72px 56px;position:relative;box-shadow:0 12px 40px rgba(0,0,0,.35)}
+  /* header */
+  .hd{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:2px solid var(--navy);padding-bottom:18px;margin-bottom:26px}
+  .brand{font-family:var(--sans);font-weight:800;font-size:24px;letter-spacing:.04em;color:var(--navy);text-transform:uppercase}
+  .brand b{color:var(--azure)}
+  .hd-r{text-align:right;font-size:12px;color:var(--mute);line-height:1.5;letter-spacing:.02em}
+  .hd-r b{color:var(--navy);font-weight:700}
+  .kicker{font-family:var(--sans);font-size:12.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--azure);margin-bottom:8px}
+  h1{font-family:var(--sans);font-weight:800;font-size:34px;line-height:1.08;letter-spacing:-.015em;color:var(--navy);max-width:26ch}
+  h2{font-family:var(--sans);font-weight:800;font-size:20px;color:var(--navy);letter-spacing:-.01em;margin:30px 0 4px;display:flex;align-items:center;gap:10px}
+  h2 .n{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:6px;background:var(--azure);color:#fff;font-size:14px;font-weight:800}
+  .sub{font-size:14.5px;color:var(--mute);line-height:1.5;max-width:92ch;margin-top:14px}
+  .sub b{color:var(--ink)}
+  /* hero insight */
+  .hero{margin-top:22px;background:linear-gradient(100deg,#eaf6fd,#f6fbfe);border:1px solid #bfe1f4;border-left:4px solid var(--azure);border-radius:12px;padding:22px 26px;display:flex;gap:28px;align-items:center}
+  .hero-fig{font-family:var(--sans);font-weight:900;font-size:44px;color:var(--azure);line-height:.95;white-space:nowrap}
+  .hero-fig small{display:block;font-family:var(--sans);font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--mute);margin-top:8px}
+  .hero-tx{font-size:16px;line-height:1.5;color:var(--ink)}
+  .hero-tx b{color:var(--azure)}
+  /* tables */
+  table{width:100%;border-collapse:collapse;margin-top:16px;font-size:14.5px}
+  th{font-family:var(--sans);font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--mute2);text-align:left;padding:10px 16px;border-bottom:2px solid var(--line)}
+  th.num,td.num{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums}
+  td{padding:11px 16px;border-bottom:1px solid var(--line);color:var(--ink)}
+  td.lbl{color:var(--navy);font-weight:600}
+  tr.hot td{background:var(--wash2)}
+  tr.total td{border-top:2px solid var(--navy);border-bottom:none;font-weight:800;color:var(--navy)}
+  tr.total td.num{color:var(--azure);font-size:16px}
+  .inc{color:var(--good);font-weight:700}
+  .tag{display:inline-block;font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 9px;border-radius:999px;vertical-align:middle}
+  .tag.f{color:var(--blue);background:#e4f1fb;border:1px solid #bcdcf3}
+  .tag.a{color:var(--warn);background:#fbf3e3;border:1px solid #ecd6a8}
+  .callout{margin-top:14px;background:var(--wash);border:1px solid var(--line);border-radius:10px;padding:14px 20px;font-size:14px;color:var(--ink);line-height:1.5}
+  .callout b{color:var(--azure)}
+  /* two-col */
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:16px}
+  .card{background:var(--wash);border:1px solid var(--line);border-radius:12px;padding:20px 24px}
+  .card-k{font-family:var(--sans);font-weight:800;font-size:14px;color:var(--navy);margin-bottom:12px;display:flex;align-items:center;gap:9px}
+  .card-k .dot{width:9px;height:9px;border-radius:50%;background:var(--azure)}
+  .card ul{list-style:none;display:flex;flex-direction:column;gap:9px}
+  .card li{font-size:13.5px;color:var(--ink);line-height:1.4;padding-left:18px;position:relative}
+  .card li::before{content:"";position:absolute;left:0;top:7px;width:6px;height:6px;border-radius:50%;background:var(--azure)}
+  .card li b{color:var(--navy)}
+  .step-k{font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mute2);margin-bottom:4px}
+  /* bars */
+  .ramp{margin-top:16px;display:flex;flex-direction:column;gap:10px}
+  .ramp-row{display:grid;grid-template-columns:70px 1fr auto;gap:14px;align-items:center}
+  .ramp-h{font-family:var(--sans);font-weight:700;font-size:13px;color:var(--navy)}
+  .ramp-track{height:22px;background:var(--wash2);border:1px solid var(--line);border-radius:5px;overflow:hidden}
+  .ramp-fill{height:100%;background:linear-gradient(90deg,#7fcdee,var(--azure));border-radius:4px}
+  .ramp-v{font-family:var(--mono);font-weight:600;font-size:14px;color:var(--navy);white-space:nowrap}
+  /* footer */
+  .foot{position:absolute;left:72px;right:72px;bottom:34px;border-top:1px solid var(--line);padding-top:12px;font-size:10.5px;color:var(--mute2);line-height:1.5}
+  .foot b{color:var(--mute)}
+  .pg{position:absolute;right:72px;bottom:14px;font-family:var(--mono);font-size:10px;color:var(--mute2)}
+  @media print{
+    @page{size:1275px 1650px;margin:0}
+    body{background:#fff;padding:0}
+    .sheet{box-shadow:none;margin:0;page-break-after:always}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ SHEET 1 ============ -->
+<section class="sheet">
+  <div class="hd">
+    <div class="brand">AUTO<b>LIV</b></div>
+    <div class="hd-r"><b>AI Economics</b> — Foundation vs. Continue Incrementally<br/>Confidential · directional planning model · September 2026<br/>Prepared for the economic discussion</div>
+  </div>
+
+  <div class="kicker">The economic question</div>
+  <h1>What AI costs is one question. How we manage that cost is the real one.</h1>
+  <p class="sub">First, an enterprise AI strategy that decides <b>how, when, and why we consume.</b> Then the mechanics: how we forecast and manage the cost. This page models both, at planning assumptions we replace with our own telemetry before we commit.</p>
+
+  <div class="hero">
+    <div class="hero-fig">$5.70M<small>Copilot alone, 20,000</small></div>
+    <div class="hero-tx">Licensing Copilot on its own now runs <b>$23.75 / user / month</b> — <b>$5.70M a year</b> for 20,000. The E7 foundation is <b>$20.00 / user / month</b> — <b>$4.80M</b> — and E7 <b>also includes</b> the agent control plane (Agent 365) and identity governance (Entra). Broad Copilot alone already costs more than the foundation that contains it.</div>
+  </div>
+
+  <h2><span class="n">1</span> Per-user license reality <span class="tag a" style="margin-left:6px">Planning price</span></h2>
+  <table>
+    <thead><tr><th>Line item</th><th class="num">Copilot standalone</th><th class="num">E7 foundation</th><th>What's included</th></tr></thead>
+    <tbody>
+      <tr><td class="lbl">Per user / month</td><td class="num">$23.75</td><td class="num">$20.00</td><td>—</td></tr>
+      <tr><td class="lbl">Per user / year</td><td class="num">$285.00</td><td class="num">$240.00</td><td>—</td></tr>
+      <tr class="hot"><td class="lbl">20,000 users / year</td><td class="num">$5.70M</td><td class="num">$4.80M</td><td>E7: Copilot + Agent 365 + Entra</td></tr>
+      <tr class="total"><td class="lbl">Difference / year</td><td class="num"></td><td class="num inc">−$0.90M</td><td>E7 is lower <i>and</i> inclusive</td></tr>
+    </tbody>
+  </table>
+  <div class="callout">The comparison holds at any broad population: at $23.75, standalone Copilot is <b>~16% more per user</b> than the entire E7 foundation at $20 — before a dollar of consumption, control plane, or identity governance.</div>
+
+  <h2><span class="n">2</span> Three-year foundation layer <span class="tag f" style="margin-left:6px">Arithmetic</span></h2>
+  <p class="sub" style="margin-top:8px">The pieces we pay for either way — licensing, an agent control plane, and identity governance. On the incremental path we buy them separately; E7 bundles them.</p>
+  <table>
+    <thead><tr><th>Component · 3-year · 20,000</th><th class="num">Continue incrementally</th><th class="num">E7 foundation</th></tr></thead>
+    <tbody>
+      <tr><td class="lbl">Copilot licenses ($23.75)</td><td class="num">$17.1M</td><td class="num">included</td></tr>
+      <tr><td class="lbl">Agent control plane (build or buy)</td><td class="num">$7.5M</td><td class="num">included</td></tr>
+      <tr><td class="lbl">Identity governance (Entra)</td><td class="num">$2.3M</td><td class="num">included</td></tr>
+      <tr class="total"><td class="lbl">Foundation-layer subtotal</td><td class="num">$26.9M</td><td class="num">$14.4M</td></tr>
+    </tbody>
+  </table>
+  <div class="callout">Apples-to-apples at full coverage, the foundation layer is <b>~$12M less over three years</b> on E7 — and that is before consumption, which we address on page 2.</div>
+
+  <div class="foot"><b>Assumptions:</b> E5 is the owned base and excluded. Copilot $23.75/user/mo and E7 $20/user/mo are planning prices pending commercial validation. Control-plane and Entra figures are directional. Not a guaranteed saving.</div>
+  <div class="pg">Autoliv AI Economics · 1 / 2</div>
+</section>
+
+<!-- ============ SHEET 2 ============ -->
+<section class="sheet">
+  <div class="hd">
+    <div class="brand">AUTO<b>LIV</b></div>
+    <div class="hd-r"><b>AI Economics</b> — Managing consumption<br/>Confidential · directional planning model · September 2026</div>
+  </div>
+
+  <div class="kicker">Managing consumption</div>
+  <h1>Consumption happens on both paths. The foundation is where we govern it.</h1>
+  <p class="sub">Consumption is not eliminated by E7, and we do not claim it is. The question the board is really asking is how we <b>forecast and control</b> it. That starts with strategy, then mechanics.</p>
+
+  <h2><span class="n">3</span> The consumption ramp <span class="tag a" style="margin-left:6px">Planning assumption</span></h2>
+  <p class="sub" style="margin-top:8px">Modeled on our own observed HR agent ($2,000 over 2 days → ~$3,000/mo steady state ≈ $36K/yr per workload), scaled as our estate grows from ~88 consuming agents today. Editable.</p>
+  <div class="ramp">
+    <div class="ramp-row"><span class="ramp-h">Today</span><div class="ramp-track"><div class="ramp-fill" style="width:4%"></div></div><span class="ramp-v">~$0.2M / yr</span></div>
+    <div class="ramp-row"><span class="ramp-h">Year 1</span><div class="ramp-track"><div class="ramp-fill" style="width:31%"></div></div><span class="ramp-v">$1.8M · 50 eq.</span></div>
+    <div class="ramp-row"><span class="ramp-h">Year 2</span><div class="ramp-track"><div class="ramp-fill" style="width:62%"></div></div><span class="ramp-v">$3.6M · 100 eq.</span></div>
+    <div class="ramp-row"><span class="ramp-h">Year 3</span><div class="ramp-track"><div class="ramp-fill" style="width:100%"></div></div><span class="ramp-v">$5.8M · 160 eq.</span></div>
+  </div>
+  <div class="callout">Left ungoverned, this is the line item that grows fastest and is hardest to forecast. On a foundation, it is metered, budgeted, and reserved for differentiated work.</div>
+
+  <h2><span class="n">4</span> How we manage consumption</h2>
+  <div class="cols">
+    <div class="card">
+      <div class="card-k"><span class="dot"></span>First — the strategy</div>
+      <ul>
+        <li><b>Tier the work.</b> Foundation-covered (fixed) for everyday scenarios; metered only for differentiated, autonomous, external, and advanced workloads.</li>
+        <li><b>Decide how, when, and why we consume</b> before we scale, not after.</li>
+        <li><b>One standard</b> for identity, governance, and observability across all agents.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-k"><span class="dot"></span>Then — the mechanics</div>
+      <ul>
+        <li><b>Forecast:</b> per-workload consumption telemetry.</li>
+        <li><b>Budget:</b> caps by department and workload, with ownership.</li>
+        <li><b>Govern:</b> approval gates before a workload meters.</li>
+        <li><b>Optimize:</b> model routing, right-sizing, and retiring waste.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2><span class="n">5</span> Three-year total cost of ownership <span class="tag a" style="margin-left:6px">Directional</span></h2>
+  <table>
+    <thead><tr><th>3-year · 20,000</th><th class="num">Continue incrementally</th><th class="num">E7 foundation</th></tr></thead>
+    <tbody>
+      <tr><td class="lbl">Foundation layer (licenses + control plane + Entra)</td><td class="num">$26.9M</td><td class="num">$14.4M</td></tr>
+      <tr><td class="lbl">Consumption</td><td class="num">$11.2M<br/><span style="font-size:11px;color:var(--mute)">ungoverned, rising</span></td><td class="num">~$6.0M<br/><span style="font-size:11px;color:var(--mute)">governed, focused</span></td></tr>
+      <tr><td class="lbl">Sprawl, remediation & waste</td><td class="num">~$4.0M</td><td class="num">~$1.0M</td></tr>
+      <tr class="total"><td class="lbl">3-year total (directional)</td><td class="num">~$42M</td><td class="num">~$21M</td></tr>
+    </tbody>
+  </table>
+  <div class="callout">This is <b>not</b> a guaranteed saving. It is that the incremental path trends <b>higher and far less predictable</b> once we count the control plane and identity we need regardless, plus consumption growth already underway. The foundation converts an unpredictable, rising spend into a governed one, and covers all 20,000.</div>
+
+  <div class="foot"><b>Sources & qualification:</b> Autoliv-provided workforce, agent-estate and HR-agent figures. Licensing $23.75 / $20 planning prices. Sprawl and abandoned-pilot exposure informed by Gartner (&gt;40% of agentic AI projects canceled by 2027; 25 Jun 2025) and IDC/Microsoft "Business Opportunity of AI" ($3.70 return per $1; Nov 2024). Consumption and control-plane figures are directional planning inputs, replaced with Autoliv telemetry before a final decision. Nothing here represents guaranteed savings or ROI.</div>
+  <div class="pg">Autoliv AI Economics · 2 / 2</div>
+</section>
+
+</body>
+</html>
