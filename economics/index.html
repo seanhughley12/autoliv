@@ -55,6 +55,13 @@
   .caveat-k{font-family:var(--sans);font-weight:800;font-size:13px;color:var(--warn);margin-bottom:7px;letter-spacing:.02em}
   .caveat p{font-size:14px;color:var(--ink);line-height:1.55}
   .caveat b{color:var(--navy)}
+  .compare{margin-top:22px;display:grid;grid-template-columns:1fr 1fr;gap:26px;align-items:end}
+  .cmp{display:flex;flex-direction:column;align-items:center;justify-content:flex-end}
+  .cmp-bar{width:130px;border-radius:10px 10px 0 0;display:flex;align-items:flex-start;justify-content:center;padding-top:14px;color:#fff;font-family:var(--sans);font-weight:800;font-size:22px}
+  .cmp-sep{grid-column:1 / -1;height:1px;background:var(--line);margin-top:-1px}
+  .cmp-cov{font-family:var(--sans);font-weight:800;font-size:30px;color:var(--navy);margin-top:14px;line-height:1}
+  .cmp-cov small{display:block;font-size:12px;font-weight:600;color:var(--mute);letter-spacing:.02em;margin-top:5px;text-transform:none}
+  .cmp-tag{font-size:12.5px;color:var(--mute);margin-top:2px}
   /* two-col */
   .cols{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:16px}
   .card{background:var(--wash);border:1px solid var(--line);border-radius:12px;padding:20px 24px}
@@ -93,43 +100,48 @@
     <div class="hd-r"><b>AI Economics</b> · Foundation vs. Continue Incrementally<br/>Confidential · directional planning model · September 2026<br/>Prepared for the economic discussion</div>
   </div>
 
-  <div class="kicker">The economic question, in two parts</div>
-  <h1>Bought piece by piece, the stack is already $3M a year for a quarter of our people.</h1>
-  <div class="cols" style="margin-top:20px">
-    <div class="card">
-      <div class="card-k"><span class="dot"></span>Managing the cost</div>
-      <p>How do we forecast, govern, and control consumption as AI scales, so cost stays predictable instead of climbing agent by agent?</p>
-    </div>
-    <div class="card">
-      <div class="card-k"><span class="dot"></span>The timing of the foundation</div>
-      <p>Do we invest in the foundation now to accelerate our AI transformation and execute strategy faster, rather than after enterprise scale has already arrived?</p>
-    </div>
-  </div>
+  <div class="kicker">The economics of scale</div>
+  <h1>The pieces for 5,000 people cost nearly what the foundation costs for 20,000.</h1>
 
   <div class="hero">
-    <div class="hero-fig">$3.08M<small>components, 5,000 users</small></div>
-    <div class="hero-tx">Buying the pieces separately, Copilot, Agent 365, and Entra Suite, plus a single PAYGO agent, runs <b>$50.75 per user per month</b>, about <b>$3.08M a year for just 5,000 people</b>. Our first internal model left the Entra line out. Added back, this is the real cost of the piecemeal path, and it is only a quarter of our workforce.</div>
+    <div class="hero-fig">4×<small>the coverage, ~$800K more</small></div>
+    <div class="hero-tx">Assembled separately, Copilot, Agent 365, and Entra Suite reach roughly <b>$3.08M a year for 5,000 people</b>. The E7 foundation delivers the same three capabilities to <b>all 20,000</b> for about <b>$3.8M</b>. Four times the coverage, fully bundled and governed, for about <b>$800K more</b>.</div>
   </div>
 
-  <h2><span class="n">1</span> The stack, bought separately <span class="tag a" style="margin-left:6px">List price</span></h2>
+  <h2><span class="n">1</span> Buying the pieces vs. the foundation <span class="tag a" style="margin-left:6px">List price</span></h2>
   <table>
-    <thead><tr><th>Component</th><th class="num">Users</th><th class="num">Per user / mo</th><th class="num">Annual</th></tr></thead>
+    <thead><tr><th>Capability</th><th class="num">Buy separately</th><th class="num">E7 foundation</th></tr></thead>
     <tbody>
-      <tr><td class="lbl">Microsoft 365 Copilot (list)</td><td class="num">5,000</td><td class="num">$23.75</td><td class="num">$1,425,000</td></tr>
-      <tr><td class="lbl">Agent 365 (list)</td><td class="num">5,000</td><td class="num">$15.00</td><td class="num">$900,000</td></tr>
-      <tr class="hot"><td class="lbl">Entra Suite (list)</td><td class="num">5,000</td><td class="num">$12.00</td><td class="num">$720,000</td></tr>
-      <tr><td class="lbl">Agent consumption (PAYGO)</td><td class="num">1 agent</td><td class="num">$3,000</td><td class="num">$36,000</td></tr>
-      <tr class="total"><td class="lbl">Piecemeal annual spend</td><td class="num">5,000</td><td class="num">$50.75</td><td class="num">$3,081,000</td></tr>
+      <tr><td class="lbl">Microsoft 365 Copilot</td><td class="num">$23.75</td><td class="num inc">included</td></tr>
+      <tr><td class="lbl">Agent 365</td><td class="num">$15.00</td><td class="num inc">included</td></tr>
+      <tr><td class="lbl">Entra Suite</td><td class="num">$12.00</td><td class="num inc">included</td></tr>
+      <tr><td class="lbl">Per user / month</td><td class="num">$50.75</td><td class="num">$16.00</td></tr>
+      <tr class="hot"><td class="lbl">Population covered</td><td class="num">5,000</td><td class="num">20,000</td></tr>
+      <tr class="total"><td class="lbl">Annual license spend</td><td class="num">$3.08M</td><td class="num">$3.84M</td></tr>
     </tbody>
   </table>
-  <div class="callout"><b>Entra Suite was missing from our first model.</b> Added back at $12/user/mo, the stack for 5,000 users reaches <b>$3.08M a year</b>, and that is before we cover the other 15,000 people or grow past a single agent.</div>
+  <div class="callout">For roughly <b>$800K more per year</b>, the foundation covers <b>four times the workforce</b> with all three layers bundled on one governed standard, instead of three separate SKUs for a quarter of the people.</div>
 
   <div class="caveat">
-    <div class="caveat-k">Why this matters</div>
-    <p>This is the cost of assembling the capability <b>one SKU at a time</b>: Copilot here, Agent 365 there, Entra separately, agents on PAYGO. E7 bundles the same three licensed layers into one foundation. The debate is not Copilot versus E7, it is buying the pieces separately and later versus one predictable foundation now. Page 2 shows what happens to this number at full scale and over three years.</p>
+    <div class="caveat-k">Why the per-user price falls</div>
+    <p>Bought individually, the stack is <b>$50.75 per user per month</b>. As one foundation it is about <b>$16</b>, because the licensed layers are bundled rather than priced as separate add-ons. The decision is not Copilot versus E7. It is three products, bought separately and later, versus one foundation that includes them, priced for the whole enterprise. Agent consumption sits on top of both and is where the real scale question lives, addressed on page 2.</p>
   </div>
 
-  <div class="foot"><b>Assumptions:</b> E5 is the owned base and excluded. Component list prices, Copilot $23.75, Agent 365 $15, Entra Suite $12 per user per month, plus PAYGO $3,000/mo per agent, are planning prices pending commercial validation. Built from our internal E7 working model, with the Entra line added. Not a guaranteed saving.</div>
+  <div class="compare">
+    <div class="cmp">
+      <div class="cmp-bar" style="height:196px;background:linear-gradient(180deg,#8a97ab,#5b6b82)">$3.08M</div>
+      <div class="cmp-cov">5,000<small>people covered</small></div>
+      <div class="cmp-tag">Three SKUs, bought separately</div>
+    </div>
+    <div class="cmp">
+      <div class="cmp-bar" style="height:244px;background:linear-gradient(180deg,#33b5ec,#009fe3)">$3.84M</div>
+      <div class="cmp-cov">20,000<small>people covered</small></div>
+      <div class="cmp-tag">One foundation, fully bundled</div>
+    </div>
+    <div class="cmp-sep"></div>
+  </div>
+
+  <div class="foot"><b>Assumptions:</b> E5 is the installed base and excluded. Component list prices, Copilot $23.75, Agent 365 $15, Entra Suite $12 per user per month, and an illustrative E7 foundation price of $16 per user per month, are planning prices pending commercial validation. The $3.08M reflects the 5,000-user stack plus one PAYGO agent. Not a guaranteed saving.</div>
   <div class="pg">Autoliv AI Economics · 1 / 2</div>
 </section>
 
@@ -141,54 +153,54 @@
   </div>
 
   <div class="kicker">Consumption at scale</div>
-  <h1>The stack was 5,000 people. Consumption and coverage only grow from here.</h1>
-  <p class="sub">Page 1 priced the licensed layers for a quarter of our people. Two things scale on top of that: covering the full workforce, and agent consumption that grows as we move from one agent to many. This is where the piecemeal path gets expensive and hard to forecast.</p>
+  <h1>Licences are the fixed part. Consumption is where scale decides the cost.</h1>
+  <p class="sub">Page 1 compared the licensed layers. Two forces grow on top of them: covering the full workforce, and agent consumption that rises as the estate moves from a single agent to many. This is where the piecemeal path becomes expensive and hard to forecast.</p>
 
   <h2><span class="n">2</span> The consumption ramp <span class="tag a" style="margin-left:6px">Planning assumption</span></h2>
-  <p class="sub" style="margin-top:8px">Modeled on our own observed HR agent ($2,000 over 2 days, about $3,000/mo steady state, roughly $36K/yr per workload), scaled as our estate grows from ~88 consuming agents today. Editable.</p>
+  <p class="sub" style="margin-top:8px">Modeled on the observed HR agent ($2,000 over 2 days, about $3,000/mo steady state, roughly $36K/yr per workload), scaled as the estate grows from ~88 consuming agents today. Editable.</p>
   <div class="ramp">
     <div class="ramp-row"><span class="ramp-h">Today</span><div class="ramp-track"><div class="ramp-fill" style="width:4%"></div></div><span class="ramp-v">~$0.2M / yr</span></div>
     <div class="ramp-row"><span class="ramp-h">Year 1</span><div class="ramp-track"><div class="ramp-fill" style="width:31%"></div></div><span class="ramp-v">$1.8M · 50 eq.</span></div>
     <div class="ramp-row"><span class="ramp-h">Year 2</span><div class="ramp-track"><div class="ramp-fill" style="width:62%"></div></div><span class="ramp-v">$3.6M · 100 eq.</span></div>
     <div class="ramp-row"><span class="ramp-h">Year 3</span><div class="ramp-track"><div class="ramp-fill" style="width:100%"></div></div><span class="ramp-v">$5.8M · 160 eq.</span></div>
   </div>
-  <div class="callout">One agent was $36K. Left ungoverned, this is the line item that grows fastest and is hardest to forecast. On a foundation, it is metered, budgeted, and reserved for differentiated work.</div>
+  <div class="callout">One agent was $36K a year. Left ungoverned, consumption is the line item that grows fastest and is hardest to forecast. On a foundation it is metered, budgeted, and reserved for differentiated work.</div>
 
-  <h2><span class="n">3</span> How we manage consumption</h2>
+  <h2><span class="n">3</span> Managing consumption</h2>
   <div class="cols">
     <div class="card">
       <div class="card-k"><span class="dot"></span>First: the strategy</div>
       <ul>
         <li><b>Tier the work.</b> Foundation-covered (fixed) for everyday scenarios; metered only for differentiated, autonomous, external, and advanced workloads.</li>
-        <li><b>Decide how, when, and why we consume</b> before we scale, not after.</li>
-        <li><b>One standard</b> for identity, governance, and observability across all agents.</li>
+        <li><b>Decide how, when, and why to consume</b> before scaling, not after.</li>
+        <li><b>One standard</b> for identity, governance, and observability across every agent.</li>
       </ul>
     </div>
     <div class="card">
       <div class="card-k"><span class="dot"></span>Then: the mechanics</div>
       <ul>
         <li><b>Forecast:</b> per-workload consumption telemetry.</li>
-        <li><b>Budget:</b> caps by department and workload, with ownership.</li>
+        <li><b>Budget:</b> caps by department and workload, with clear ownership.</li>
         <li><b>Govern:</b> approval gates before a workload meters.</li>
         <li><b>Optimize:</b> model routing, right-sizing, and retiring waste.</li>
       </ul>
     </div>
   </div>
 
-  <h2><span class="n">4</span> Three-year total cost of ownership <span class="tag a" style="margin-left:6px">Illustrative talk track</span></h2>
-  <p class="sub" style="margin-top:8px">At full coverage (~20,000) over three years, the piecemeal stack plus growing consumption compounds. The figures below are directional; the defensible core is the per-component pricing on page 1.</p>
+  <h2><span class="n">4</span> Three-year total cost of ownership <span class="tag a" style="margin-left:6px">Directional</span></h2>
+  <p class="sub" style="margin-top:8px">At full coverage (20,000) over three years, the piecemeal stack plus growing consumption compounds. The figures below are directional; the defensible core is the per-component pricing on page 1.</p>
   <table>
-    <thead><tr><th>3-year · 20,000</th><th class="num">Continue piecemeal</th><th class="num">E7 foundation</th></tr></thead>
+    <thead><tr><th>3-year · 20,000</th><th class="num">Buy separately</th><th class="num">E7 foundation</th></tr></thead>
     <tbody>
-      <tr><td class="lbl">Licensed layers (Copilot + Agent 365 + Entra)</td><td class="num">$36.5M<br/><span style="font-size:11px;color:var(--mute)">bought separately</span></td><td class="num">$14.4M<br/><span style="font-size:11px;color:var(--mute)">bundled</span></td></tr>
+      <tr><td class="lbl">Licensed layers (Copilot + Agent 365 + Entra)</td><td class="num">$36.5M<br/><span style="font-size:11px;color:var(--mute)">separate SKUs</span></td><td class="num">$11.5M<br/><span style="font-size:11px;color:var(--mute)">bundled, $16/user</span></td></tr>
       <tr><td class="lbl">Agent consumption</td><td class="num">$11.2M<br/><span style="font-size:11px;color:var(--mute)">ungoverned, rising</span></td><td class="num">~$6.0M<br/><span style="font-size:11px;color:var(--mute)">governed, focused</span></td></tr>
       <tr><td class="lbl">Sprawl, remediation & waste</td><td class="num">~$4.0M</td><td class="num">~$1.0M</td></tr>
-      <tr class="total"><td class="lbl">3-year total (directional)</td><td class="num">~$52M</td><td class="num">~$21M</td></tr>
+      <tr class="total"><td class="lbl">3-year total (directional)</td><td class="num">~$52M</td><td class="num">~$18.5M</td></tr>
     </tbody>
   </table>
   <div class="callout">This is <b>not</b> a guaranteed saving. The point is that buying the layers separately and letting consumption grow ungoverned trends <b>far higher and less predictable</b> than one bundled foundation. The foundation converts a rising, piecemeal spend into a governed one, and covers all 20,000.</div>
 
-  <div class="foot"><b>Sources & qualification:</b> Component list prices (Copilot $23.75, Agent 365 $15, Entra Suite $12 per user per month; PAYGO $3,000/mo) built from our internal E7 working model with Entra added. Consumption modeled on our own HR-agent behavior. Sprawl and abandoned-pilot exposure informed by Gartner (over 40% of agentic AI projects canceled by 2027; 25 Jun 2025). All figures are directional planning inputs, replaced with Autoliv telemetry before a final decision. Nothing here represents guaranteed savings or ROI.</div>
+  <div class="foot"><b>Sources & qualification:</b> Component list prices (Copilot $23.75, Agent 365 $15, Entra Suite $12 per user per month; illustrative E7 foundation $16 per user per month; PAYGO $3,000/mo). Consumption modeled on the observed HR agent. Sprawl and abandoned-pilot exposure informed by Gartner (over 40% of agentic AI projects canceled by 2027; 25 Jun 2025). All figures are directional planning inputs, replaced with Autoliv telemetry before a final decision. Nothing here represents guaranteed savings or ROI.</div>
   <div class="pg">Autoliv AI Economics · 2 / 2</div>
 </section>
 
