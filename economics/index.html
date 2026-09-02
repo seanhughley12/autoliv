@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Autoliv AI Economics — Foundation vs. Continue Incrementally</title>
+<title>Autoliv AI Economics: Foundation vs. Continue Incrementally</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet" />
@@ -50,12 +50,18 @@
   .tag.a{color:var(--warn);background:#fbf3e3;border:1px solid #ecd6a8}
   .callout{margin-top:14px;background:var(--wash);border:1px solid var(--line);border-radius:10px;padding:14px 20px;font-size:14px;color:var(--ink);line-height:1.5}
   .callout b{color:var(--azure)}
+  .disc{margin-top:10px;font-size:12.5px;color:var(--mute);line-height:1.5}
+  .caveat{margin-top:16px;background:#fbf7ee;border:1px solid #ecd9b0;border-left:4px solid var(--warn);border-radius:10px;padding:16px 22px}
+  .caveat-k{font-family:var(--sans);font-weight:800;font-size:13px;color:var(--warn);margin-bottom:7px;letter-spacing:.02em}
+  .caveat p{font-size:14px;color:var(--ink);line-height:1.55}
+  .caveat b{color:var(--navy)}
   /* two-col */
   .cols{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:16px}
   .card{background:var(--wash);border:1px solid var(--line);border-radius:12px;padding:20px 24px}
   .card-k{font-family:var(--sans);font-weight:800;font-size:14px;color:var(--navy);margin-bottom:12px;display:flex;align-items:center;gap:9px}
   .card-k .dot{width:9px;height:9px;border-radius:50%;background:var(--azure)}
   .card ul{list-style:none;display:flex;flex-direction:column;gap:9px}
+  .card p{font-size:14px;color:var(--ink);line-height:1.5}
   .card li{font-size:13.5px;color:var(--ink);line-height:1.4;padding-left:18px;position:relative}
   .card li::before{content:"";position:absolute;left:0;top:7px;width:6px;height:6px;border-radius:50%;background:var(--azure)}
   .card li b{color:var(--navy)}
@@ -84,32 +90,43 @@
 <section class="sheet">
   <div class="hd">
     <div class="brand">AUTO<b>LIV</b></div>
-    <div class="hd-r"><b>AI Economics</b> — Foundation vs. Continue Incrementally<br/>Confidential · directional planning model · September 2026<br/>Prepared for the economic discussion</div>
+    <div class="hd-r"><b>AI Economics</b> · Foundation vs. Continue Incrementally<br/>Confidential · directional planning model · September 2026<br/>Prepared for the economic discussion</div>
   </div>
 
-  <div class="kicker">The economic question</div>
-  <h1>What AI costs is one question. How we manage that cost is the real one.</h1>
-  <p class="sub">First, an enterprise AI strategy that decides <b>how, when, and why we consume.</b> Then the mechanics: how we forecast and manage the cost. This page models both, at planning assumptions we replace with our own telemetry before we commit.</p>
+  <div class="kicker">The economic question, in two parts</div>
+  <h1>What AI costs is one question. How we manage it, and when we invest, are the real ones.</h1>
+  <div class="cols" style="margin-top:20px">
+    <div class="card">
+      <div class="card-k"><span class="dot"></span>Managing the cost</div>
+      <p>How do we forecast, govern, and control consumption as AI scales, so cost stays predictable instead of climbing agent by agent?</p>
+    </div>
+    <div class="card">
+      <div class="card-k"><span class="dot"></span>The timing of the foundation</div>
+      <p>Do we invest in the foundation now to accelerate our AI transformation and execute strategy faster, rather than after enterprise scale has already arrived?</p>
+    </div>
+  </div>
+  <p class="sub">This page answers both, at planning assumptions we replace with our own telemetry before we commit.</p>
 
   <div class="hero">
     <div class="hero-fig">$5.70M<small>Copilot alone, 20,000</small></div>
-    <div class="hero-tx">Licensing Copilot on its own now runs <b>$23.75 / user / month</b> — <b>$5.70M a year</b> for 20,000. The E7 foundation is <b>$20.00 / user / month</b> — <b>$4.80M</b> — and E7 <b>also includes</b> the agent control plane (Agent 365) and identity governance (Entra). Broad Copilot alone already costs more than the foundation that contains it.</div>
+    <div class="hero-tx">Licensing Copilot on its own now runs <b>$23.75 per user per month</b>, about <b>$5.70M a year</b> for 20,000 people. The E7 foundation is <b>$20.00 per user per month</b>, about <b>$4.80M</b>, and E7 <b>also includes</b> the agent control plane (Agent 365) and identity governance (Entra). Broad Copilot alone already costs more than the foundation that contains it.</div>
   </div>
+  <p class="disc"><b>On the $5.70M:</b> we use list pricing as a directional example. At enterprise scale we would expect additional volume discounts, so standalone Copilot would likely land below $5.70M. The relationship is the point: the Copilot add-on is priced above the E7 step-up, and E7 bundles more.</p>
 
   <h2><span class="n">1</span> Per-user license reality <span class="tag a" style="margin-left:6px">Planning price</span></h2>
   <table>
     <thead><tr><th>Line item</th><th class="num">Copilot standalone</th><th class="num">E7 foundation</th><th>What's included</th></tr></thead>
     <tbody>
-      <tr><td class="lbl">Per user / month</td><td class="num">$23.75</td><td class="num">$20.00</td><td>—</td></tr>
-      <tr><td class="lbl">Per user / year</td><td class="num">$285.00</td><td class="num">$240.00</td><td>—</td></tr>
+      <tr><td class="lbl">Per user / month</td><td class="num">$23.75</td><td class="num">$20.00</td><td>Copilot only vs. Copilot + more</td></tr>
+      <tr><td class="lbl">Per user / year</td><td class="num">$285.00</td><td class="num">$240.00</td><td>$45 less per user on E7</td></tr>
       <tr class="hot"><td class="lbl">20,000 users / year</td><td class="num">$5.70M</td><td class="num">$4.80M</td><td>E7: Copilot + Agent 365 + Entra</td></tr>
-      <tr class="total"><td class="lbl">Difference / year</td><td class="num"></td><td class="num inc">−$0.90M</td><td>E7 is lower <i>and</i> inclusive</td></tr>
+      <tr class="total"><td class="lbl">Difference / year</td><td class="num"></td><td class="num inc">−$0.90M</td><td>E7 is lower and inclusive</td></tr>
     </tbody>
   </table>
-  <div class="callout">The comparison holds at any broad population: at $23.75, standalone Copilot is <b>~16% more per user</b> than the entire E7 foundation at $20 — before a dollar of consumption, control plane, or identity governance.</div>
+  <div class="callout">The comparison holds at any broad population: at $23.75, standalone Copilot is <b>~16% more per user</b> than the entire E7 foundation at $20, before a dollar of consumption, control plane, or identity governance.</div>
 
   <h2><span class="n">2</span> Three-year foundation layer <span class="tag f" style="margin-left:6px">Arithmetic</span></h2>
-  <p class="sub" style="margin-top:8px">The pieces we pay for either way — licensing, an agent control plane, and identity governance. On the incremental path we buy them separately; E7 bundles them.</p>
+  <p class="sub" style="margin-top:8px">The pieces we pay for either way: licensing, an agent control plane, and identity governance. On the incremental path we buy them separately; E7 bundles them.</p>
   <table>
     <thead><tr><th>Component · 3-year · 20,000</th><th class="num">Continue incrementally</th><th class="num">E7 foundation</th></tr></thead>
     <tbody>
@@ -119,7 +136,12 @@
       <tr class="total"><td class="lbl">Foundation-layer subtotal</td><td class="num">$26.9M</td><td class="num">$14.4M</td></tr>
     </tbody>
   </table>
-  <div class="callout">Apples-to-apples at full coverage, the foundation layer is <b>~$12M less over three years</b> on E7 — and that is before consumption, which we address on page 2.</div>
+  <div class="callout">At full coverage, the foundation layer is <b>~$12M less over three years</b> on E7, before consumption, which we address on page 2.</div>
+
+  <div class="caveat">
+    <div class="caveat-k">Being honest about timing</div>
+    <p>E7 is not cheaper on day one. Today, our consumption, Copilot licenses, and control-plane spend do not yet add up to the E7 investment, and the crossover arrives further down the road, not on a straight line. The case for acting now rests on two costs of waiting: the <b>rising, unpredictable spend</b> we take on in the meantime, and the <b>strategic execution we defer</b> by scaling AI without a foundation.</p>
+  </div>
 
   <div class="foot"><b>Assumptions:</b> E5 is the owned base and excluded. Copilot $23.75/user/mo and E7 $20/user/mo are planning prices pending commercial validation. Control-plane and Entra figures are directional. Not a guaranteed saving.</div>
   <div class="pg">Autoliv AI Economics · 1 / 2</div>
@@ -129,7 +151,7 @@
 <section class="sheet">
   <div class="hd">
     <div class="brand">AUTO<b>LIV</b></div>
-    <div class="hd-r"><b>AI Economics</b> — Managing consumption<br/>Confidential · directional planning model · September 2026</div>
+    <div class="hd-r"><b>AI Economics</b> · Managing consumption<br/>Confidential · directional planning model · September 2026</div>
   </div>
 
   <div class="kicker">Managing consumption</div>
@@ -149,7 +171,7 @@
   <h2><span class="n">4</span> How we manage consumption</h2>
   <div class="cols">
     <div class="card">
-      <div class="card-k"><span class="dot"></span>First — the strategy</div>
+      <div class="card-k"><span class="dot"></span>First: the strategy</div>
       <ul>
         <li><b>Tier the work.</b> Foundation-covered (fixed) for everyday scenarios; metered only for differentiated, autonomous, external, and advanced workloads.</li>
         <li><b>Decide how, when, and why we consume</b> before we scale, not after.</li>
@@ -157,7 +179,7 @@
       </ul>
     </div>
     <div class="card">
-      <div class="card-k"><span class="dot"></span>Then — the mechanics</div>
+      <div class="card-k"><span class="dot"></span>Then: the mechanics</div>
       <ul>
         <li><b>Forecast:</b> per-workload consumption telemetry.</li>
         <li><b>Budget:</b> caps by department and workload, with ownership.</li>
@@ -167,7 +189,8 @@
     </div>
   </div>
 
-  <h2><span class="n">5</span> Three-year total cost of ownership <span class="tag a" style="margin-left:6px">Directional</span></h2>
+  <h2><span class="n">5</span> Three-year total cost of ownership <span class="tag a" style="margin-left:6px">Illustrative talk track</span></h2>
+  <p class="sub" style="margin-top:8px">The figures below are an illustrative talk track, not a precise forecast. The defensible core is the foundation layer on page 1; consumption and waste are directional and depend on how we scale.</p>
   <table>
     <thead><tr><th>3-year · 20,000</th><th class="num">Continue incrementally</th><th class="num">E7 foundation</th></tr></thead>
     <tbody>
@@ -177,7 +200,7 @@
       <tr class="total"><td class="lbl">3-year total (directional)</td><td class="num">~$42M</td><td class="num">~$21M</td></tr>
     </tbody>
   </table>
-  <div class="callout">This is <b>not</b> a guaranteed saving. It is that the incremental path trends <b>higher and far less predictable</b> once we count the control plane and identity we need regardless, plus consumption growth already underway. The foundation converts an unpredictable, rising spend into a governed one, and covers all 20,000.</div>
+  <div class="callout">This is <b>not</b> a guaranteed saving. The point is that the incremental path trends <b>higher and far less predictable</b> once we count the control plane and identity we need regardless, plus consumption growth already underway. The foundation converts an unpredictable, rising spend into a governed one, and covers all 20,000.</div>
 
   <div class="foot"><b>Sources & qualification:</b> Autoliv-provided workforce, agent-estate and HR-agent figures. Licensing $23.75 / $20 planning prices. Sprawl and abandoned-pilot exposure informed by Gartner (&gt;40% of agentic AI projects canceled by 2027; 25 Jun 2025) and IDC/Microsoft "Business Opportunity of AI" ($3.70 return per $1; Nov 2024). Consumption and control-plane figures are directional planning inputs, replaced with Autoliv telemetry before a final decision. Nothing here represents guaranteed savings or ROI.</div>
   <div class="pg">Autoliv AI Economics · 2 / 2</div>
