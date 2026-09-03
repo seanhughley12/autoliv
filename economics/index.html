@@ -62,6 +62,14 @@
   .cmp-cov{font-family:var(--sans);font-weight:800;font-size:30px;color:var(--navy);margin-top:14px;line-height:1}
   .cmp-cov small{display:block;font-size:12px;font-weight:600;color:var(--mute);letter-spacing:.02em;margin-top:5px;text-transform:none}
   .cmp-tag{font-size:12.5px;color:var(--mute);margin-top:2px}
+  .yr1{display:inline-block;font-family:var(--sans);font-size:10px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:#0b4a68;background:#ffe08a;border:1px solid #f2c94c;border-radius:4px;padding:2px 7px;margin-left:6px;vertical-align:middle}
+  td .hl-y1{background:#fff5d6;border-radius:4px;padding:2px 6px;font-weight:700}
+  .lockin{margin-top:16px;background:linear-gradient(100deg,#eaf6fd,#f6fbfe);border:1px solid #bfe1f4;border-left:4px solid var(--azure);border-radius:10px;padding:16px 22px}
+  .lockin-k{font-family:var(--sans);font-weight:800;font-size:13px;color:var(--azure);margin-bottom:7px;letter-spacing:.02em}
+  .lockin p{font-size:14px;color:var(--ink);line-height:1.55}
+  .lockin b{color:var(--navy)}
+  .ramped{display:inline-block;font-family:var(--sans);font-size:10px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:#0b4a68;background:#cfeafb;border:1px solid #9ad2f2;border-radius:4px;padding:2px 7px;margin-left:6px;vertical-align:middle}
+  td .hl-r{background:#e6f4fc;border-radius:4px;padding:2px 6px;font-weight:700}
   /* two-col */
   .cols{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:16px}
   .card{background:var(--wash);border:1px solid var(--line);border-radius:12px;padding:20px 24px}
@@ -105,7 +113,7 @@
 
   <div class="hero">
     <div class="hero-fig">4×<small>the coverage, ~$800K more</small></div>
-    <div class="hero-tx">Assembled separately, Copilot, Agent 365, and Entra Suite reach roughly <b>$3.08M a year for 5,000 people</b>. The E7 foundation delivers the same three capabilities to <b>all 20,000</b> for about <b>$3.8M</b>. Four times the coverage, fully bundled and governed, for about <b>$800K more</b>.</div>
+    <div class="hero-tx">Assembled separately, Copilot, Agent 365, and Entra Suite reach roughly <b>$3.08M a year for 5,000 people</b>. The E7 foundation delivers the same three capabilities to <b>all 20,000</b> for about <b>$3.8M at year-one pricing</b>. Four times the coverage, fully bundled and governed, for about <b>$800K more</b>.</div>
   </div>
 
   <h2><span class="n">1</span> Buying the pieces vs. the foundation <span class="tag a" style="margin-left:6px">List price</span></h2>
@@ -115,7 +123,7 @@
       <tr><td class="lbl">Microsoft 365 Copilot</td><td class="num">$23.75</td><td class="num inc">included</td></tr>
       <tr><td class="lbl">Agent 365</td><td class="num">$15.00</td><td class="num inc">included</td></tr>
       <tr><td class="lbl">Entra Suite</td><td class="num">$12.00</td><td class="num inc">included</td></tr>
-      <tr><td class="lbl">Per user / month</td><td class="num">$50.75</td><td class="num">$16.00</td></tr>
+      <tr><td class="lbl">Per user / month</td><td class="num">$50.75</td><td class="num"><span class="hl-y1">$16.00</span> <span class="yr1">Year 1</span></td></tr>
       <tr class="hot"><td class="lbl">Population covered</td><td class="num">5,000</td><td class="num">20,000</td></tr>
       <tr class="total"><td class="lbl">Annual license spend</td><td class="num">$3.08M</td><td class="num">$3.84M</td></tr>
     </tbody>
@@ -124,7 +132,12 @@
 
   <div class="caveat">
     <div class="caveat-k">Why the per-user price falls</div>
-    <p>Bought individually, the stack is <b>$50.75 per user per month</b>. As one foundation it is about <b>$16</b>, because the licensed layers are bundled rather than priced as separate add-ons. The decision is not Copilot versus E7. It is three products, bought separately and later, versus one foundation that includes them, priced for the whole enterprise. Agent consumption sits on top of both and is where the real scale question lives, addressed on page 2.</p>
+    <p>Bought individually, the stack is <b>$50.75 per user per month</b>. As one foundation it is about <b>$16 in year one</b>, because the licensed layers are bundled rather than priced as separate add-ons. The decision is not Copilot versus E7. It is three products, bought separately and later, versus one foundation that includes them, priced for the whole enterprise. Agent consumption sits on top of both and is where the real scale question lives, addressed on page 2.</p>
+  </div>
+
+  <div class="lockin">
+    <div class="lockin-k">Acting early locks the price</div>
+    <p>Purchasing before the increase, for example in December, <b>locks year-one pricing through May 1</b> and then for a <b>further 12 months</b>. That gives us room to ramp adoption while holding the best rate, so more of our workforce is on the foundation before pricing steps up.</p>
   </div>
 
   <div class="compare">
@@ -141,7 +154,7 @@
     <div class="cmp-sep"></div>
   </div>
 
-  <div class="foot"><b>Assumptions:</b> E5 is the installed base and excluded. Component list prices, Copilot $23.75, Agent 365 $15, Entra Suite $12 per user per month, and an illustrative E7 foundation price of $16 per user per month, are planning prices pending commercial validation. The $3.08M reflects the 5,000-user stack plus one PAYGO agent. Not a guaranteed saving.</div>
+  <div class="foot"><b>Assumptions:</b> E5 is the installed base and excluded. Component list prices, Copilot $23.75, Agent 365 $15, Entra Suite $12 per user per month, and an illustrative E7 year-one foundation price of $16 per user per month, are planning prices pending commercial validation. The $3.08M reflects the 5,000-user stack plus one PAYGO agent. Not a guaranteed saving.</div>
   <div class="pg">Autoliv AI Economics · 1 / 2</div>
 </section>
 
@@ -187,12 +200,12 @@
     </div>
   </div>
 
-  <h2><span class="n">4</span> Three-year total cost of ownership <span class="tag a" style="margin-left:6px">Directional</span></h2>
-  <p class="sub" style="margin-top:8px">This is a ramp, not a flat buy, so the three-year figures use blended per-user rates rather than target prices: about <b>$50/user/mo</b> assembling the SKUs separately, versus about <b>$20/user/mo</b> blended on the foundation, which is lower earlier in the ramp. Directional; the defensible core is the per-component pricing on page 1.</p>
+  <h2><span class="n">4</span> Three-year total cost of ownership <span class="tag a" style="margin-left:6px">Directional</span><span class="ramped">Ramped pricing</span></h2>
+  <p class="sub" style="margin-top:8px">This is a ramp, not a flat buy. The foundation starts at <b>$16/user/mo in year one</b> and blends to about <b>$20/user/mo</b> across three years as pricing steps up and coverage grows. Assembling the SKUs separately blends to about <b>$50/user/mo</b>. Directional; the defensible core is the per-component pricing on page 1.</p>
   <table>
     <thead><tr><th>3-year · 20,000 · blended</th><th class="num">Buy separately</th><th class="num">E7 foundation</th></tr></thead>
     <tbody>
-      <tr><td class="lbl">Licensed layers (Copilot + Agent 365 + Entra)</td><td class="num">$36.0M<br/><span style="font-size:11px;color:var(--mute)">~$50/user, separate SKUs</span></td><td class="num">$14.4M<br/><span style="font-size:11px;color:var(--mute)">~$20/user, bundled</span></td></tr>
+      <tr><td class="lbl">Licensed layers (Copilot + Agent 365 + Entra)</td><td class="num">$36.0M<br/><span style="font-size:11px;color:var(--mute)">~$50/user, separate SKUs</span></td><td class="num"><span class="hl-r">$14.4M</span><br/><span style="font-size:11px;color:var(--mute)">~$20/user blended, $16 year 1</span></td></tr>
       <tr><td class="lbl">Agent consumption</td><td class="num">$11.2M<br/><span style="font-size:11px;color:var(--mute)">ungoverned, rising</span></td><td class="num">~$6.0M<br/><span style="font-size:11px;color:var(--mute)">governed, focused</span></td></tr>
       <tr><td class="lbl">Sprawl, remediation & waste</td><td class="num">~$4.0M</td><td class="num">~$1.0M</td></tr>
       <tr class="total"><td class="lbl">3-year total (directional)</td><td class="num">~$51M</td><td class="num">~$21M</td></tr>
